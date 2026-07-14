@@ -1669,15 +1669,19 @@
         const categoryKeys = ['plum', 'apricot', 'peach', 'peony', 'pomegranate', 'lotus', 'orchid', 'osmanthus', 'chrysanthemum', 'hibiscus', 'camellia', 'narcissus'];
         const monthLabels = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
 
-        let API_BASE_URL = 'http://localhost:8000';
+        let API_BASE_URL = '';
 
         async function initApiUrl() {
             if (window.electronAPI) {
                 try {
                     API_BASE_URL = await window.electronAPI.getApiUrl();
                 } catch (e) {
-                    console.log('Not running in Electron, using default API URL');
+                    console.log('Not running in Electron, using relative API URL');
+                    API_BASE_URL = '';
                 }
+            } else {
+                // Web deployment: use relative URLs
+                API_BASE_URL = '';
             }
         }
 
