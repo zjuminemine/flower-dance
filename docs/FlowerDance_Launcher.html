@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>Flower Dance · 本地启动器</title>
+  <style>
+    :root {
+      --page: #10141d;
+      --panel: rgba(27, 34, 48, .88);
+      --line: rgba(229, 216, 255, .14);
+      --text: #f7f2ff;
+      --muted: #aeb7ca;
+      --accent: #e8a0c5;
+      --accent-dark: #9f577f;
+      --green: #86e0ad;
+      --danger: #ff9da7;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(164, 91, 139, .26), transparent 28rem),
+        radial-gradient(circle at 88% 86%, rgba(85, 117, 178, .24), transparent 28rem),
+        var(--page);
+    }
+
+    main { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 68px 0 48px; }
+    .hero { text-align: center; margin-bottom: 32px; }
+    .flower { font-size: 56px; line-height: 1; filter: drop-shadow(0 6px 16px rgba(232,160,197,.28)); }
+    h1 { margin: 14px 0 10px; font-size: clamp(28px, 5vw, 44px); letter-spacing: .04em; }
+    .subtitle { max-width: 610px; margin: auto; color: var(--muted); line-height: 1.75; }
+    .grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+    .panel { border: 1px solid var(--line); border-radius: 20px; padding: 26px; background: var(--panel); box-shadow: 0 20px 48px rgba(0,0,0,.16); backdrop-filter: blur(14px); }
+    .panel h2 { margin: 0 0 10px; font-size: 18px; }
+    .panel p { margin: 0; color: var(--muted); line-height: 1.7; font-size: 14px; }
+    .primary { width: 100%; min-height: 52px; margin: 20px 0 12px; border: 0; border-radius: 12px; color: #2e1023; font: inherit; font-weight: 750; cursor: pointer; background: linear-gradient(135deg, #ffd1e4, #eaa1c5); box-shadow: 0 10px 25px rgba(167,76,124,.25); }
+    .primary:hover { filter: brightness(1.06); transform: translateY(-1px); }
+    button:focus-visible, a:focus-visible { outline: 3px solid #a9c8ff; outline-offset: 3px; }
+    .status { min-height: 22px; font-size: 13px; color: var(--muted); }
+    .status.ready { color: var(--green); }
+    .status.error { color: var(--danger); }
+    .platforms { display: grid; gap: 10px; margin-top: 18px; }
+    .platform { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid var(--line); }
+    .platform strong { display: block; font-size: 14px; }
+    .platform span { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .secondary, .text-link { border: 1px solid var(--line); border-radius: 9px; padding: 8px 10px; color: var(--text); background: transparent; font: inherit; font-size: 12px; text-decoration: none; white-space: nowrap; cursor: pointer; }
+    .secondary:hover, .text-link:hover { border-color: var(--accent); color: #ffd8eb; }
+    .info { margin-top: 18px; padding: 14px; border-radius: 12px; background: rgba(255,255,255,.045); color: var(--muted); font-size: 12px; line-height: 1.65; }
+    .wide { margin-top: 18px; }
+    .command { display: flex; align-items: stretch; gap: 8px; margin-top: 12px; }
+    code { display: block; flex: 1; min-width: 0; padding: 10px 12px; overflow-x: auto; border-radius: 9px; color: #f8d7e7; background: #0b0e15; font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: nowrap; }
+    footer { margin-top: 22px; color: #7e899f; text-align: center; font-size: 12px; line-height: 1.6; }
+    .hidden { display: none; }
+
+    @media (max-width: 700px) {
+      main { padding-top: 42px; }
+      .grid { grid-template-columns: 1fr; }
+      .panel { padding: 21px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="flower" aria-hidden="true">🌸</div>
+      <h1>朝花夕拾 · Flower Dance</h1>
+      <p class="subtitle">离线启动控制台。保存或直接打开此文件后，可检测本地服务、进入已启动的应用，并使用项目中现成的启动脚本。</p>
+    </section>
+
+    <section class="grid" aria-label="启动控制台">
+      <article class="panel">
+        <h2>启动并进入应用</h2>
+        <p>若服务已在本机 <code style="display:inline;padding:2px 5px">127.0.0.1:8000</code> 运行，点击即可打开 Flower Dance。</p>
+        <button class="primary" id="openApp" type="button">检查服务并打开应用</button>
+        <div class="status" id="status" role="status" aria-live="polite">正在检查本地服务…</div>
+        <div class="info">
+          HTML 文件不能直接执行 Python、Shell 或 BAT 命令，这是浏览器的本机安全限制。实际启动由下方的项目脚本完成；启动后，此按钮会直接进入应用。
+        </div>
+      </article>
+
+      <article class="panel">
+        <h2>一键启动脚本</h2>
+        <p>项目已配备跨平台启动脚本。双击对应文件即可启动后端并自动打开浏览器。</p>
+        <div class="platforms">
+          <div class="platform">
+            <div><strong>macOS / Linux</strong><span>FlowerDance.command</span></div>
+            <a class="text-link" id="macScript" href="../scripts/FlowerDance.command">打开脚本</a>
+          </div>
+          <div class="platform">
+            <div><strong>Windows</strong><span>FlowerDance.bat</span></div>
+            <a class="text-link" id="windowsScript" href="../scripts/FlowerDance.bat">打开脚本</a>
+          </div>
+        </div>
+        <div class="info">请在 Finder / 文件资源管理器中双击上述脚本。若浏览器仅显示脚本内容，使用下方命令在终端执行即可。</div>
+      </article>
+    </section>
+
+    <section class="panel wide">
+      <h2>终端备用启动</h2>
+      <p id="pathHint">正在读取此启动器所在的项目路径…</p>
+      <div class="command">
+        <code id="macCommand">bash scripts/FlowerDance.command</code>
+        <button class="secondary" type="button" data-copy="macCommand">复制 macOS/Linux 命令</button>
+      </div>
+      <div class="command">
+        <code id="windowsCommand">scripts\FlowerDance.bat</code>
+        <button class="secondary" type="button" data-copy="windowsCommand">复制 Windows 命令</button>
+      </div>
+    </section>
+
+    <footer>
+      本文件不含远程资源，不会上传项目内容。应用数据仍保存在项目的 <code style="display:inline;padding:1px 4px">data/flower_dance.db</code>。
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      const appUrl = 'http://127.0.0.1:8000';
+      const status = document.getElementById('status');
+      const openApp = document.getElementById('openApp');
+
+      function setStatus(message, kind = '') {
+        status.className = `status ${kind}`.trim();
+        status.textContent = message;
+      }
+
+      async function serviceIsReady() {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 1800);
+        try {
+          const response = await fetch(`${appUrl}/api/health`, { signal: controller.signal, cache: 'no-store' });
+          return response.ok;
+        } catch (_) {
+          return false;
+        } finally {
+          clearTimeout(timeout);
+        }
+      }
+
+      async function checkService(openWhenReady = false) {
+        setStatus('正在检查本地服务…');
+        const ready = await serviceIsReady();
+        if (ready) {
+          setStatus('服务已就绪，可以进入应用。', 'ready');
+          if (openWhenReady) window.open(appUrl, '_blank', 'noopener');
+          return;
+        }
+        setStatus('服务尚未启动。请双击对应平台的启动脚本后再试。', 'error');
+      }
+
+      function projectRoot() {
+        if (location.protocol !== 'file:') return '项目根目录';
+        const currentPath = decodeURIComponent(location.pathname);
+        return currentPath.replace(/\/docs\/[^/]+$/, '') || '项目根目录';
+      }
+
+      function setCommands() {
+        const root = projectRoot();
+        const windowsRoot = root.replace(/^\//, '').replace(/\//g, '\\');
+        document.getElementById('pathHint').textContent = root === '项目根目录'
+          ? '请在项目根目录打开终端，再复制下方对应系统的命令。'
+          : `检测到项目路径：${root}`;
+        document.getElementById('macCommand').textContent = `cd "${root}" && bash scripts/FlowerDance.command`;
+        document.getElementById('windowsCommand').textContent = `cd /d "${windowsRoot}" && scripts\\FlowerDance.bat`;
+      }
+
+      async function copyText(id, button) {
+        const value = document.getElementById(id).textContent;
+        try {
+          await navigator.clipboard.writeText(value);
+        } catch (_) {
+          const area = document.createElement('textarea');
+          area.value = value;
+          area.style.position = 'fixed';
+          area.style.opacity = '0';
+          document.body.append(area);
+          area.select();
+          document.execCommand('copy');
+          area.remove();
+        }
+        const original = button.textContent;
+        button.textContent = '已复制';
+        setTimeout(() => { button.textContent = original; }, 1500);
+      }
+
+      openApp.addEventListener('click', () => checkService(true));
+      document.querySelectorAll('[data-copy]').forEach((button) => {
+        button.addEventListener('click', () => copyText(button.dataset.copy, button));
+      });
+      setCommands();
+      checkService();
+    })();
+  </script>
+</body>
+</html>

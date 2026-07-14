@@ -1,0 +1,181 @@
+{
+    "user_info": {
+        "id": "demo_user_a",
+        "name": "张小明",
+        "age": 24,
+        "description": "刚毕业研究生",
+        "tags": ["学习积极", "工作焦虑", "社交较少", "家庭关系良好"],
+        "card_count": 50
+    },
+    "uploads": [
+        {
+            "id": "demo_a_upload_001",
+            "source_type": "text",
+            "raw_text": "今天是研究生毕业的第一天，终于拿到了毕业证。三年的努力没有白费，感谢导师的指导和同学们的帮助。接下来要开始找工作了，有点紧张但也很期待。",
+            "created_at": "2024-06-15T10:00:00"
+        },
+        {
+            "id": "demo_a_upload_002",
+            "source_type": "text",
+            "raw_text": "投了十几份简历，大部分都石沉大海。只有两家公司回复了面试，感觉竞争好激烈。每天都在刷招聘网站，焦虑得睡不着觉。",
+            "created_at": "2024-06-20T22:30:00"
+        },
+        {
+            "id": "demo_a_upload_003",
+            "source_type": "text",
+            "raw_text": "今天第一次面试，表现得不太好。面试官问的问题很多都答不上来，感觉自己准备得不够充分。回来后一直在复盘，下次一定要改进。",
+            "created_at": "2024-06-25T18:00:00"
+        },
+        {
+            "id": "demo_a_upload_004",
+            "source_type": "text",
+            "raw_text": "收到了一家心仪公司的offer！薪资比预期高，工作内容也很感兴趣。终于不用再焦虑了，可以好好放松一下了。",
+            "created_at": "2024-07-05T14:00:00"
+        },
+        {
+            "id": "demo_a_upload_005",
+            "source_type": "text",
+            "raw_text": "入职第一天，公司氛围很好。导师很耐心地给我讲解业务，同事们也很友好。感觉这是一个很好的开始，要努力工作！",
+            "created_at": "2024-07-15T09:00:00"
+        },
+        {
+            "id": "demo_a_upload_006",
+            "source_type": "text",
+            "raw_text": "工作两周了，感觉压力很大。很多东西都不会，每天都要加班到很晚。有时候觉得自己是不是不够聪明，怀疑自己能不能胜任这份工作。",
+            "created_at": "2024-07-30T21:00:00"
+        },
+        {
+            "id": "demo_a_upload_007",
+            "source_type": "text",
+            "raw_text": "周末回家陪爸妈吃饭，妈妈做了我最喜欢的菜。爸爸说工作不要太拼命，身体最重要。他们的话让我很感动，感觉又充满了力量。",
+            "created_at": "2024-08-03T19:00:00"
+        },
+        {
+            "id": "demo_a_upload_008",
+            "source_type": "text",
+            "raw_text": "报名参加了一个Python进阶课程，每周六上课。虽然周末不能休息了，但学到新东西感觉很充实。希望能尽快提升自己的技术能力。",
+            "created_at": "2024-08-10T10:00:00"
+        },
+        {
+            "id": "demo_a_upload_009",
+            "source_type": "text",
+            "raw_text": "今天在公司做了第一次技术分享，虽然有点紧张，但效果还不错。同事们给了很多反馈，让我知道了自己的不足。以后要多锻炼表达能力。",
+            "created_at": "2024-08-20T16:00:00"
+        },
+        {
+            "id": "demo_a_upload_010",
+            "source_type": "text",
+            "raw_text": "下班回家路过书店，买了一本《深入理解计算机系统》。打算每天晚上看几页，慢慢啃这本经典。学习是一辈子的事，不能停下来。",
+            "created_at": "2024-08-25T20:00:00"
+        },
+        {
+            "id": "demo_a_upload_011",
+            "source_type": "text",
+            "raw_text": "最近周末都待在家里学习，很少和朋友联系。感觉自己有点太宅了，但又觉得时间不够用。社交和学习之间很难平衡。",
+            "created_at": "2024-09-01T22:00:00"
+        },
+        {
+            "id": "demo_a_upload_012",
+            "source_type": "text",
+            "raw_text": "公司组织团建，去郊外烧烤。虽然一开始有点拘谨，但后来和同事们玩得很开心。发现工作之外大家都很有趣，以后要多参加这类活动。",
+            "created_at": "2024-09-10T18:00:00"
+        },
+        {
+            "id": "demo_a_upload_013",
+            "source_type": "text",
+            "raw_text": "最近睡眠不太好，经常熬夜学习。早上起来感觉很疲惫，工作效率也下降了。决定调整作息，每天11点前必须睡觉。",
+            "created_at": "2024-09-15T23:00:00"
+        },
+        {
+            "id": "demo_a_upload_014",
+            "source_type": "text",
+            "raw_text": "坚持早睡一周了，感觉精神状态好多了。早上起来跑步20分钟，然后吃个健康的早餐。好习惯真的能改变一个人。",
+            "created_at": "2024-09-22T07:30:00"
+        },
+        {
+            "id": "demo_a_upload_015",
+            "source_type": "text",
+            "raw_text": "今天项目上线，用户反馈不错。领导在会上表扬了我，说我进步很快。那一刻感觉所有的努力都值得了，以后要继续加油！",
+            "created_at": "2024-10-01T17:00:00"
+        },
+        {
+            "id": "demo_a_upload_016",
+            "source_type": "text",
+            "raw_text": "国庆假期和家人一起去旅游，爬了泰山。虽然很累，但站在山顶看日出的那一刻，感觉一切都值了。家人在一起就是最幸福的事。",
+            "created_at": "2024-10-05T06:00:00"
+        },
+        {
+            "id": "demo_a_upload_017",
+            "source_type": "text",
+            "raw_text": "最近在读《刻意练习》，这本书让我明白天才不是天生的，而是通过大量的练习和反馈培养出来的。以后学习要更注重方法而不是时间。",
+            "created_at": "2024-10-10T21:00:00"
+        },
+        {
+            "id": "demo_a_upload_018",
+            "source_type": "text",
+            "raw_text": "和大学同学视频聊天，他们有的已经结婚了，有的还在读博。聊了很久，感觉时间过得真快。毕业后大家各奔东西，但友谊还在。",
+            "created_at": "2024-10-15T20:00:00"
+        },
+        {
+            "id": "demo_a_upload_019",
+            "source_type": "text",
+            "raw_text": "年底要做年度总结了，回顾这半年的工作，成长了很多。从一个什么都不会的新人，到现在能独立负责模块开发。明年的目标是成为技术骨干。",
+            "created_at": "2024-11-20T18:00:00"
+        },
+        {
+            "id": "demo_a_upload_020",
+            "source_type": "text",
+            "raw_text": "公司年底聚餐，抽到了一等奖！是一台平板电脑。今年运气不错，希望明年也能继续保持。新的一年要更加努力！",
+            "created_at": "2024-12-25T21:00:00"
+        }
+    ],
+    "cards": {
+        "plum": [
+            {"id": "demo_a_plum_001", "card_text": "你刚毕业时充满期待，但面对求职压力会感到焦虑和自我怀疑", "facts": ["拿到毕业证", "投简历石沉大海", "面试答不上来"], "source_ids": ["demo_a_upload_001", "demo_a_upload_002", "demo_a_upload_003"], "created_at": "2024-06-25T18:00:00", "updated_at": "2024-06-25T18:00:00"},
+            {"id": "demo_a_plum_002", "card_text": "你面对挑战时会复盘反思，从失败中吸取教训", "facts": ["面试后复盘", "技术分享后改进表达"], "source_ids": ["demo_a_upload_003", "demo_a_upload_009"], "created_at": "2024-08-20T16:00:00", "updated_at": "2024-08-20T16:00:00"}
+        ],
+        "apricot": [
+            {"id": "demo_a_apricot_001", "card_text": "你学习积极主动，报名Python课程并坚持阅读专业书籍", "facts": ["报名Python进阶课程", "买《深入理解计算机系统》", "看《刻意练习》"], "source_ids": ["demo_a_upload_008", "demo_a_upload_010", "demo_a_upload_017"], "created_at": "2024-08-10T10:00:00", "updated_at": "2024-10-10T21:00:00"},
+            {"id": "demo_a_apricot_002", "card_text": "你重视学习方法，从《刻意练习》中领悟到练习和反馈的重要性", "facts": ["读《刻意练习》", "明白天才不是天生的"], "source_ids": ["demo_a_upload_017"], "created_at": "2024-10-10T21:00:00", "updated_at": "2024-10-10T21:00:00"}
+        ],
+        "peach": [
+            {"id": "demo_a_peach_001", "card_text": "你目前专注于工作和学习，尚未建立亲密关系", "facts": ["周末学习", "很少和朋友联系"], "source_ids": ["demo_a_upload_011"], "created_at": "2024-09-01T22:00:00", "updated_at": "2024-09-01T22:00:00"}
+        ],
+        "peony": [
+            {"id": "demo_a_peony_001", "card_text": "你从新人成长为能独立负责模块开发的工程师", "facts": ["入职第一天", "工作两周压力大", "项目上线获得表扬"], "source_ids": ["demo_a_upload_005", "demo_a_upload_006", "demo_a_upload_015"], "created_at": "2024-07-15T09:00:00", "updated_at": "2024-10-01T17:00:00"},
+            {"id": "demo_a_peony_002", "card_text": "你主动分享技术，锻炼表达能力", "facts": ["第一次技术分享"], "source_ids": ["demo_a_upload_009"], "created_at": "2024-08-20T16:00:00", "updated_at": "2024-08-20T16:00:00"}
+        ],
+        "pomegranate": [
+            {"id": "demo_a_pomegranate_001", "card_text": "你和家人关系良好，周末常回家陪伴父母", "facts": ["周末回家陪爸妈吃饭", "国庆和家人旅游"], "source_ids": ["demo_a_upload_007", "demo_a_upload_016"], "created_at": "2024-08-03T19:00:00", "updated_at": "2024-10-05T06:00:00"},
+            {"id": "demo_a_pomegranate_002", "card_text": "你重视家人的关心，父母的话能给你力量", "facts": ["爸爸说工作不要太拼命", "妈妈做最喜欢的菜"], "source_ids": ["demo_a_upload_007"], "created_at": "2024-08-03T19:00:00", "updated_at": "2024-08-03T19:00:00"}
+        ],
+        "lotus": [
+            {"id": "demo_a_lotus_001", "card_text": "你关注身体健康，调整作息并坚持早起跑步", "facts": ["调整作息11点前睡觉", "早上跑步20分钟", "吃健康早餐"], "source_ids": ["demo_a_upload_013", "demo_a_upload_014"], "created_at": "2024-09-15T23:00:00", "updated_at": "2024-09-22T07:30:00"},
+            {"id": "demo_a_lotus_002", "card_text": "你通过旅游放松身心，爬泰山看日出", "facts": ["国庆旅游爬泰山", "站在山顶看日出"], "source_ids": ["demo_a_upload_016"], "created_at": "2024-10-05T06:00:00", "updated_at": "2024-10-05T06:00:00"}
+        ],
+        "orchid": [
+            {"id": "demo_a_orchid_001", "card_text": "你社交较少，周末更倾向于独处学习", "facts": ["周末待在家里学习", "很少和朋友联系"], "source_ids": ["demo_a_upload_011"], "created_at": "2024-09-01T22:00:00", "updated_at": "2024-09-01T22:00:00"},
+            {"id": "demo_a_orchid_002", "card_text": "你通过团建逐渐融入同事，和大家玩得开心", "facts": ["参加公司团建", "和同事玩得很开心"], "source_ids": ["demo_a_upload_012"], "created_at": "2024-09-10T18:00:00", "updated_at": "2024-09-10T18:00:00"}
+        ],
+        "osmanthus": [
+            {"id": "demo_a_osmanthus_001", "card_text": "你从求职焦虑到收到心仪offer，工作后快速成长", "facts": ["投简历石沉大海", "收到心仪公司offer", "项目上线获得表扬"], "source_ids": ["demo_a_upload_002", "demo_a_upload_004", "demo_a_upload_015"], "created_at": "2024-06-20T22:30:00", "updated_at": "2024-10-01T17:00:00"},
+            {"id": "demo_a_osmanthus_002", "card_text": "你工作初期压力大，但通过学习和努力逐渐适应", "facts": ["工作两周压力大", "报名Python课程", "年度总结成长很多"], "source_ids": ["demo_a_upload_006", "demo_a_upload_008", "demo_a_upload_019"], "created_at": "2024-07-30T21:00:00", "updated_at": "2024-11-20T18:00:00"}
+        ],
+        "chrysanthemum": [
+            {"id": "demo_a_chrysanthemum_001", "card_text": "你喜欢阅读，尤其是技术书籍和自我提升类书籍", "facts": ["买《深入理解计算机系统》", "读《刻意练习》"], "source_ids": ["demo_a_upload_010", "demo_a_upload_017"], "created_at": "2024-08-25T20:00:00", "updated_at": "2024-10-10T21:00:00"},
+            {"id": "demo_a_chrysanthemum_002", "card_text": "你喜欢旅游，和家人一起爬泰山看日出", "facts": ["国庆旅游", "爬泰山看日出"], "source_ids": ["demo_a_upload_016"], "created_at": "2024-10-05T06:00:00", "updated_at": "2024-10-05T06:00:00"}
+        ],
+        "hibiscus": [
+            {"id": "demo_a_hibiscus_001", "card_text": "你情绪会随工作状态波动，从焦虑到成就感", "facts": ["求职焦虑睡不着", "收到offer不再焦虑", "项目上线感到值得"], "source_ids": ["demo_a_upload_002", "demo_a_upload_004", "demo_a_upload_015"], "created_at": "2024-06-20T22:30:00", "updated_at": "2024-10-01T17:00:00"},
+            {"id": "demo_a_hibiscus_002", "card_text": "你通过调整作息改善情绪，精神状态变好", "facts": ["睡眠不好疲惫", "坚持早睡精神变好"], "source_ids": ["demo_a_upload_013", "demo_a_upload_014"], "created_at": "2024-09-15T23:00:00", "updated_at": "2024-09-22T07:30:00"}
+        ],
+        "camellia": [
+            {"id": "demo_a_camellia_001", "card_text": "你养成了良好的生活习惯，每天早起跑步和阅读", "facts": ["每天11点前睡觉", "早上跑步20分钟", "每天晚上看几页书"], "source_ids": ["demo_a_upload_013", "demo_a_upload_014", "demo_a_upload_010"], "created_at": "2024-09-15T23:00:00", "updated_at": "2024-09-22T07:30:00"},
+            {"id": "demo_a_camellia_002", "card_text": "你坚持学习，周末上课并持续阅读", "facts": ["每周六上课", "每天晚上看几页书"], "source_ids": ["demo_a_upload_008", "demo_a_upload_010"], "created_at": "2024-08-10T10:00:00", "updated_at": "2024-08-25T20:00:00"}
+        ],
+        "narcissus": [
+            {"id": "demo_a_narcissus_001", "card_text": "你在面对职业选择时会认真权衡，最终选择心仪公司", "facts": ["投了十几份简历", "收到心仪公司offer"], "source_ids": ["demo_a_upload_002", "demo_a_upload_004"], "created_at": "2024-06-20T22:30:00", "updated_at": "2024-07-05T14:00:00"},
+            {"id": "demo_a_narcissus_002", "card_text": "你制定职业规划，目标是成为技术骨干", "facts": ["年度总结成长很多", "明年目标是技术骨干"], "source_ids": ["demo_a_upload_019"], "created_at": "2024-11-20T18:00:00", "updated_at": "2024-11-20T18:00:00"}
+        ]
+    }
+}

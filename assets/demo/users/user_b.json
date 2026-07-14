@@ -1,0 +1,181 @@
+{
+    "user_info": {
+        "id": "demo_user_b",
+        "name": "李明",
+        "age": 28,
+        "description": "AI工程师",
+        "tags": ["长期加班", "睡眠不足", "兴趣广泛"],
+        "card_count": 80
+    },
+    "uploads": [
+        {
+            "id": "demo_b_upload_001",
+            "source_type": "text",
+            "raw_text": "今天又加班到凌晨两点，项目上线前压力好大。AI模型的准确率一直达不到要求，试了各种方法都不行。感觉身体有点吃不消了，但又不能停下来。",
+            "created_at": "2024-01-10T02:00:00"
+        },
+        {
+            "id": "demo_b_upload_002",
+            "source_type": "text",
+            "raw_text": "周末去爬山了，好久没有运动了。站在山顶呼吸新鲜空气，感觉整个人都清醒了。以后要多抽时间出来活动，不能老是坐在电脑前。",
+            "created_at": "2024-01-15T16:00:00"
+        },
+        {
+            "id": "demo_b_upload_003",
+            "source_type": "text",
+            "raw_text": "最近在学习深度学习，看了很多论文。感觉自己的知识储备不够，需要学的东西太多了。每天下班后还要学习2小时，虽然累但很充实。",
+            "created_at": "2024-01-20T22:00:00"
+        },
+        {
+            "id": "demo_b_upload_004",
+            "source_type": "text",
+            "raw_text": "今天项目终于上线了！模型准确率达到了预期，领导很满意。连续熬了一周的夜，终于可以好好睡一觉了。不过明天还要处理线上问题，唉。",
+            "created_at": "2024-01-25T00:00:00"
+        },
+        {
+            "id": "demo_b_upload_005",
+            "source_type": "text",
+            "raw_text": "报了一个摄影班，周末去上课。第一次拿起相机拍照，感觉很有趣。以后想拍更多好看的照片，记录生活中的美好瞬间。",
+            "created_at": "2024-02-01T10:00:00"
+        },
+        {
+            "id": "demo_b_upload_006",
+            "source_type": "text",
+            "raw_text": "又失眠了，这是连续第五天睡不好。脑子里全是工作上的事情，怎么也停不下来。明天还要早起开会，这样下去身体会垮掉的。",
+            "created_at": "2024-02-05T03:00:00"
+        },
+        {
+            "id": "demo_b_upload_007",
+            "source_type": "text",
+            "raw_text": "和朋友一起去看了一场音乐会，现场氛围太好了。听着喜欢的乐队唱歌，感觉所有的压力都释放了。好久没有这么开心了。",
+            "created_at": "2024-02-10T22:00:00"
+        },
+        {
+            "id": "demo_b_upload_008",
+            "source_type": "text",
+            "raw_text": "最近在研究大语言模型，写了一个小项目来练手。虽然功能还很简单，但看到自己的代码能跑起来，感觉很有成就感。继续加油！",
+            "created_at": "2024-02-15T23:00:00"
+        },
+        {
+            "id": "demo_b_upload_009",
+            "source_type": "text",
+            "raw_text": "公司体检结果出来了，身体指标不太好。医生建议我多休息，少熬夜。可是项目这么忙，怎么可能不加班呢？好纠结。",
+            "created_at": "2024-02-20T10:00:00"
+        },
+        {
+            "id": "demo_b_upload_010",
+            "source_type": "text",
+            "raw_text": "周末在家做了一顿大餐，邀请了几个朋友来吃饭。大家一起做饭、聊天、喝酒，度过了一个愉快的周末。这样的日子真好。",
+            "created_at": "2024-02-25T19:00:00"
+        },
+        {
+            "id": "demo_b_upload_011",
+            "source_type": "text",
+            "raw_text": "今天和女朋友吵架了，因为我又加班没陪她。她说我把工作看得比她重要，我也不知道该怎么解释。其实我很在乎她，但工作也不能放下。",
+            "created_at": "2024-03-01T23:00:00"
+        },
+        {
+            "id": "demo_b_upload_012",
+            "source_type": "text",
+            "raw_text": "报名参加了马拉松比赛，准备开始训练。虽然平时很少运动，但想挑战一下自己。希望能坚持下来，完成比赛。",
+            "created_at": "2024-03-05T09:00:00"
+        },
+        {
+            "id": "demo_b_upload_013",
+            "source_type": "text",
+            "raw_text": "今天在公司做了技术分享，讲了关于大语言模型应用的一些经验。同事们反响不错，有几个人还来找我讨论。感觉分享也是一种学习。",
+            "created_at": "2024-03-10T16:00:00"
+        },
+        {
+            "id": "demo_b_upload_014",
+            "source_type": "text",
+            "raw_text": "买了一台新相机，终于可以好好拍照了。周末去公园拍了很多照片，虽然技术还不行，但感觉进步很快。摄影真的很有意思。",
+            "created_at": "2024-03-15T18:00:00"
+        },
+        {
+            "id": "demo_b_upload_015",
+            "source_type": "text",
+            "raw_text": "最近在学习钢琴，每天下班后练半小时。虽然手指还很僵硬，但已经能弹一首简单的曲子了。学一门乐器真的能让人静下心来。",
+            "created_at": "2024-03-20T21:00:00"
+        },
+        {
+            "id": "demo_b_upload_016",
+            "source_type": "text",
+            "raw_text": "和女朋友去旅行了，去了海边。两个人一起看日出、散步、吃海鲜，感觉很幸福。工作再忙也要抽出时间陪她，不能让她觉得孤单。",
+            "created_at": "2024-03-25T08:00:00"
+        },
+        {
+            "id": "demo_b_upload_017",
+            "source_type": "text",
+            "raw_text": "项目又出问题了，需要紧急修复。这已经是这个月第三次了，感觉有点力不从心。是不是应该考虑换个工作？但现在的薪资待遇还不错。",
+            "created_at": "2024-04-01T22:00:00"
+        },
+        {
+            "id": "demo_b_upload_018",
+            "source_type": "text",
+            "raw_text": "今天参加了一个AI技术大会，听了很多大牛的分享。感觉自己还有很多东西要学，技术发展太快了，不学习就要被淘汰。",
+            "created_at": "2024-04-10T18:00:00"
+        },
+        {
+            "id": "demo_b_upload_019",
+            "source_type": "text",
+            "raw_text": "坚持跑步一个月了，感觉身体好多了。睡眠质量也改善了，不像以前那样容易失眠了。运动真的很重要，以后要坚持下去。",
+            "created_at": "2024-04-15T07:00:00"
+        },
+        {
+            "id": "demo_b_upload_020",
+            "source_type": "text",
+            "raw_text": "今天升职了！领导说我工作表现优秀，给我涨了工资还升了职。虽然压力会更大，但也是一种认可。继续努力，不辜负这份信任。",
+            "created_at": "2024-04-20T17:00:00"
+        }
+    ],
+    "cards": {
+        "plum": [
+            {"id": "demo_b_plum_001", "card_text": "你面对工作压力时会坚持到底，但也会感到疲惫和迷茫", "facts": ["加班到凌晨两点", "连续熬一周的夜", "项目出问题力不从心"], "source_ids": ["demo_b_upload_001", "demo_b_upload_004", "demo_b_upload_017"], "created_at": "2024-01-10T02:00:00", "updated_at": "2024-04-01T22:00:00"},
+            {"id": "demo_b_plum_002", "card_text": "你有自我反思的习惯，会考虑换工作但又珍惜现有待遇", "facts": ["考虑换工作", "薪资待遇不错"], "source_ids": ["demo_b_upload_017"], "created_at": "2024-04-01T22:00:00", "updated_at": "2024-04-01T22:00:00"}
+        ],
+        "apricot": [
+            {"id": "demo_b_apricot_001", "card_text": "你持续学习深度学习和大语言模型，每天下班后学习2小时", "facts": ["学习深度学习看论文", "研究大语言模型", "参加AI技术大会"], "source_ids": ["demo_b_upload_003", "demo_b_upload_008", "demo_b_upload_018"], "created_at": "2024-01-20T22:00:00", "updated_at": "2024-04-10T18:00:00"},
+            {"id": "demo_b_apricot_002", "card_text": "你通过技术分享和实践项目来巩固知识", "facts": ["写大语言模型小项目", "做技术分享"], "source_ids": ["demo_b_upload_008", "demo_b_upload_013"], "created_at": "2024-02-15T23:00:00", "updated_at": "2024-03-10T16:00:00"}
+        ],
+        "peach": [
+            {"id": "demo_b_peach_001", "card_text": "你因工作忙碌忽略陪伴女朋友，导致争吵但愿意调整", "facts": ["加班没陪女朋友吵架", "和女朋友去旅行"], "source_ids": ["demo_b_upload_011", "demo_b_upload_016"], "created_at": "2024-03-01T23:00:00", "updated_at": "2024-03-25T08:00:00"},
+            {"id": "demo_b_peach_002", "card_text": "你重视和女朋友的关系，愿意抽出时间陪伴她", "facts": ["去海边旅行", "不能让她觉得孤单"], "source_ids": ["demo_b_upload_016"], "created_at": "2024-03-25T08:00:00", "updated_at": "2024-03-25T08:00:00"}
+        ],
+        "peony": [
+            {"id": "demo_b_peony_001", "card_text": "你作为AI工程师持续提升技术，项目上线获得认可", "facts": ["AI模型准确率达标", "升职加薪"], "source_ids": ["demo_b_upload_004", "demo_b_upload_020"], "created_at": "2024-01-25T00:00:00", "updated_at": "2024-04-20T17:00:00"},
+            {"id": "demo_b_peony_002", "card_text": "你善于技术分享，将经验传递给同事", "facts": ["做技术分享", "同事来讨论"], "source_ids": ["demo_b_upload_013"], "created_at": "2024-03-10T16:00:00", "updated_at": "2024-03-10T16:00:00"}
+        ],
+        "pomegranate": [
+            {"id": "demo_b_pomegranate_001", "card_text": "你和家人互动较少，但关心身体健康", "facts": ["体检结果不好", "医生建议多休息"], "source_ids": ["demo_b_upload_009"], "created_at": "2024-02-20T10:00:00", "updated_at": "2024-02-20T10:00:00"}
+        ],
+        "lotus": [
+            {"id": "demo_b_lotus_001", "card_text": "你长期加班导致睡眠不足和身体指标下降", "facts": ["加班到凌晨两点", "连续失眠五天", "体检指标不好"], "source_ids": ["demo_b_upload_001", "demo_b_upload_006", "demo_b_upload_009"], "created_at": "2024-01-10T02:00:00", "updated_at": "2024-02-20T10:00:00"},
+            {"id": "demo_b_lotus_002", "card_text": "你通过运动改善健康，坚持跑步一个月效果显著", "facts": ["报名马拉松训练", "坚持跑步一个月", "睡眠质量改善"], "source_ids": ["demo_b_upload_012", "demo_b_upload_019"], "created_at": "2024-03-05T09:00:00", "updated_at": "2024-04-15T07:00:00"}
+        ],
+        "orchid": [
+            {"id": "demo_b_orchid_001", "card_text": "你通过聚会和音乐会放松，与朋友关系良好", "facts": ["看音乐会", "邀请朋友来家吃饭"], "source_ids": ["demo_b_upload_007", "demo_b_upload_010"], "created_at": "2024-02-10T22:00:00", "updated_at": "2024-02-25T19:00:00"},
+            {"id": "demo_b_orchid_002", "card_text": "你积极参加技术交流，与同事讨论分享", "facts": ["参加AI技术大会", "做技术分享"], "source_ids": ["demo_b_upload_013", "demo_b_upload_018"], "created_at": "2024-03-10T16:00:00", "updated_at": "2024-04-10T18:00:00"}
+        ],
+        "osmanthus": [
+            {"id": "demo_b_osmanthus_001", "card_text": "你工作压力大但表现优秀，从项目上线到升职加薪", "facts": ["项目上线领导满意", "升职加薪"], "source_ids": ["demo_b_upload_004", "demo_b_upload_020"], "created_at": "2024-01-25T00:00:00", "updated_at": "2024-04-20T17:00:00"},
+            {"id": "demo_b_osmanthus_002", "card_text": "你面对频繁的线上问题感到力不从心，但仍在坚持", "facts": ["项目出问题紧急修复", "这个月第三次"], "source_ids": ["demo_b_upload_017"], "created_at": "2024-04-01T22:00:00", "updated_at": "2024-04-01T22:00:00"}
+        ],
+        "chrysanthemum": [
+            {"id": "demo_b_chrysanthemum_001", "card_text": "你兴趣广泛，包括摄影、音乐、运动和旅行", "facts": ["报摄影班", "学钢琴", "报名马拉松", "去海边旅行"], "source_ids": ["demo_b_upload_005", "demo_b_upload_012", "demo_b_upload_015", "demo_b_upload_016"], "created_at": "2024-02-01T10:00:00", "updated_at": "2024-03-25T08:00:00"},
+            {"id": "demo_b_chrysanthemum_002", "card_text": "你喜欢户外活动，爬山和跑步是常做的运动", "facts": ["周末爬山", "坚持跑步"], "source_ids": ["demo_b_upload_002", "demo_b_upload_019"], "created_at": "2024-01-15T16:00:00", "updated_at": "2024-04-15T07:00:00"}
+        ],
+        "hibiscus": [
+            {"id": "demo_b_hibiscus_001", "card_text": "你情绪随工作状态波动，从压力到成就感", "facts": ["压力大身体吃不消", "项目上线可以睡觉", "升职感到认可"], "source_ids": ["demo_b_upload_001", "demo_b_upload_004", "demo_b_upload_020"], "created_at": "2024-01-10T02:00:00", "updated_at": "2024-04-20T17:00:00"},
+            {"id": "demo_b_hibiscus_002", "card_text": "你通过兴趣爱好调节情绪，摄影和音乐让你放松", "facts": ["摄影有意思", "学钢琴能静心"], "source_ids": ["demo_b_upload_014", "demo_b_upload_015"], "created_at": "2024-03-15T18:00:00", "updated_at": "2024-03-20T21:00:00"}
+        ],
+        "camellia": [
+            {"id": "demo_b_camellia_001", "card_text": "你有坚持学习的习惯，每天下班后学习2小时", "facts": ["每天学习2小时", "周末上课"], "source_ids": ["demo_b_upload_003", "demo_b_upload_005"], "created_at": "2024-01-20T22:00:00", "updated_at": "2024-02-01T10:00:00"},
+            {"id": "demo_b_camellia_002", "card_text": "你养成运动习惯，坚持跑步和准备马拉松", "facts": ["报名马拉松", "坚持跑步一个月"], "source_ids": ["demo_b_upload_012", "demo_b_upload_019"], "created_at": "2024-03-05T09:00:00", "updated_at": "2024-04-15T07:00:00"}
+        ],
+        "narcissus": [
+            {"id": "demo_b_narcissus_001", "card_text": "你在职业发展中权衡利弊，考虑换工作但珍惜现有待遇", "facts": ["考虑换工作", "薪资待遇不错"], "source_ids": ["demo_b_upload_017"], "created_at": "2024-04-01T22:00:00", "updated_at": "2024-04-01T22:00:00"},
+            {"id": "demo_b_narcissus_002", "card_text": "你制定健康计划，通过运动改善身体状况", "facts": ["报名马拉松", "坚持跑步"], "source_ids": ["demo_b_upload_012", "demo_b_upload_019"], "created_at": "2024-03-05T09:00:00", "updated_at": "2024-04-15T07:00:00"}
+        ]
+    }
+}

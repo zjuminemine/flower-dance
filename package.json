@@ -1,0 +1,70 @@
+{
+  "name": "flower-dance",
+  "version": "1.0.0",
+  "description": "朝花夕拾 Flower Dance - AI自我认知探索工具",
+  "main": "electron/main.js",
+  "author": "Flower Dance",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron .",
+    "build": "electron-builder",
+    "build:mac": "electron-builder --mac",
+    "build:win": "electron-builder --win",
+    "build:linux": "electron-builder --linux"
+  },
+  "dependencies": {
+    "electron": "^28.0.0",
+    "electron-is-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.flowerdance.app",
+    "productName": "Flower Dance",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "frontend/index.html",
+      "frontend/product-doc.html",
+      "electron/main.js",
+      "electron/preload.js",
+      "backend/",
+      "node_modules/"
+    ],
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "category": "public.app-category.lifestyle"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    }
+  }
+}

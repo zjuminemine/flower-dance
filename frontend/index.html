@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>朝花夕拾 Flower Dance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;500;600;700&family=Zhi+Mang+Xing&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-deep: #0a0312;
+            --bg-mid: #150824;
+            --bg-light: #2a1848;
+            --panel-bg: rgba(18, 8, 32, 0.68);
+            --panel-border: rgba(200, 180, 235, 0.18);
+            --text-primary: #f8f0e8;
+            --text-gold: #ffd6a5;
+            --text-soft: rgba(248, 240, 232, 0.72);
+            --text-muted: rgba(248, 240, 232, 0.5);
+            --accent-purple: #b794d4;
+            --accent-violet: #7c5cbf;
+            --accent-pink: #ec4899;
+            --accent-gold: #e8c39e;
+            --glass-highlight: rgba(255, 255, 255, 0.14);
+        }
+
+        body {
+            font-family: 'Noto Serif SC', 'Ma Shan Zheng', serif;
+            background-color: var(--bg-deep);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        /* 黄昏花海背景层 */
+        .bg-layer {
+            position: fixed;
+            inset: 0;
+            z-index: -4;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(124, 92, 191, 0.38) 0%, transparent 55%),
+                radial-gradient(ellipse at 85% 65%, rgba(236, 72, 153, 0.18) 0%, transparent 42%),
+                radial-gradient(ellipse at 15% 75%, rgba(99, 102, 241, 0.16) 0%, transparent 48%),
+                radial-gradient(ellipse at 50% 100%, rgba(124, 58, 237, 0.22) 0%, transparent 50%),
+                linear-gradient(180deg, #3d2666 0%, #241442 18%, #130822 45%, #0a0312 100%);
+        }
+        .bg-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: -3;
+            background: radial-gradient(circle at 50% 30%, rgba(255, 214, 165, 0.08) 0%, transparent 40%);
+            pointer-events: none;
+        }
+        .bg-field {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 42vh;
+            z-index: -3;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        /* 漂浮光点 */
+        .light-particle {
+            position: fixed;
+            border-radius: 50%;
+            background: #fff;
+            pointer-events: none;
+            z-index: -2;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 25px rgba(255, 214, 165, 0.5);
+            animation: floatParticle ease-in-out infinite;
+        }
+        @keyframes floatParticle {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
+            50% { transform: translateY(-25px) scale(1.2); opacity: 0.85; }
+        }
+
+        /* 飘落花瓣 */
+        .falling-petal {
+            position: fixed;
+            border-radius: 50% 0 50% 50%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0;
+            animation: fall linear infinite;
+        }
+        .falling-petal:nth-child(1) { width: 10px; height: 10px; left: 5%; background: rgba(255, 182, 220, 0.55); animation-duration: 15s; animation-delay: 0s; }
+        .falling-petal:nth-child(2) { width: 8px; height: 8px; left: 12%; background: rgba(255, 214, 165, 0.45); animation-duration: 18s; animation-delay: 2s; }
+        .falling-petal:nth-child(3) { width: 11px; height: 11px; left: 22%; background: rgba(216, 180, 254, 0.48); animation-duration: 13s; animation-delay: 1s; }
+        .falling-petal:nth-child(4) { width: 9px; height: 9px; left: 33%; background: rgba(255, 192, 210, 0.52); animation-duration: 16s; animation-delay: 4s; }
+        .falling-petal:nth-child(5) { width: 12px; height: 12px; left: 45%; background: rgba(255, 218, 185, 0.42); animation-duration: 14s; animation-delay: 3s; }
+        .falling-petal:nth-child(6) { width: 8px; height: 8px; left: 55%; background: rgba(221, 160, 230, 0.48); animation-duration: 17s; animation-delay: 5s; }
+        .falling-petal:nth-child(7) { width: 10px; height: 10px; left: 66%; background: rgba(255, 182, 220, 0.55); animation-duration: 15s; animation-delay: 2.5s; }
+        .falling-petal:nth-child(8) { width: 9px; height: 9px; left: 77%; background: rgba(255, 214, 165, 0.45); animation-duration: 19s; animation-delay: 1.5s; }
+        .falling-petal:nth-child(9) { width: 11px; height: 11px; left: 86%; background: rgba(216, 180, 254, 0.48); animation-duration: 14s; animation-delay: 6s; }
+        .falling-petal:nth-child(10) { width: 8px; height: 8px; left: 94%; background: rgba(255, 192, 210, 0.52); animation-duration: 16s; animation-delay: 3.5s; }
+        .falling-petal:nth-child(11) { width: 10px; height: 10px; left: 18%; background: rgba(255, 218, 185, 0.42); animation-duration: 18s; animation-delay: 7s; }
+        .falling-petal:nth-child(12) { width: 9px; height: 9px; left: 70%; background: rgba(221, 160, 230, 0.48); animation-duration: 13s; animation-delay: 0.5s; }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; }
+            12% { opacity: 0.55; }
+            88% { opacity: 0.55; }
+            100% { transform: translateY(110vh) rotate(720deg) translateX(45px); opacity: 0; }
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 标题区 */
+        .header-section {
+            text-align: center;
+            padding: 38px 20px 42px;
+            position: relative;
+            z-index: 10;
+        }
+        .header-section h1 {
+            font-family: 'Zhi Mang Xing', cursive;
+            font-size: 4.4rem;
+            font-weight: 300;
+            color: var(--text-gold);
+            letter-spacing: 22px;
+            text-shadow: 0 2px 18px rgba(255, 214, 165, 0.38), 0 0 55px rgba(183, 148, 212, 0.35);
+            margin-bottom: 6px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .header-section .english {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            letter-spacing: 10px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+        .header-section .main-title {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.7rem;
+            color: #fff8f0;
+            letter-spacing: 5px;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+        }
+        .header-section .sub-title {
+            font-size: 0.88rem;
+            color: var(--text-soft);
+            letter-spacing: 3px;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 主内容区 */
+        .main-layout {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 320px 1fr 360px;
+            gap: 28px;
+            padding: 0 28px 24px;
+            max-width: 1680px;
+            margin: 0 auto;
+            width: 100%;
+            min-height: calc(100vh - 260px);
+        }
+
+        /* 玻璃面板 */
+        .glass-panel {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 10;
+            background: var(--panel-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid var(--panel-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 36px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            overflow: hidden;
+            flex: 1;
+            height: 70vh;
+        }
+        .panel-header {
+            text-align: center;
+            padding: 22px 18px 16px;
+            border-bottom: 1px solid rgba(200, 180, 235, 0.12);
+        }
+        .panel-header h2 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.55rem;
+            color: var(--text-gold);
+            letter-spacing: 4px;
+            font-weight: 400;
+        }
+        .panel-header p {
+            font-size: 0.75rem;
+            color: var(--text-soft);
+            margin-top: 6px;
+            letter-spacing: 1px;
+        }
+        .panel-body {
+            flex: 1;
+            padding: 18px 18px 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 种花面板 */
+        .plant-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .plant-area textarea {
+            width: 100%;
+            height: 140px;
+            padding: 14px;
+            border: 1px solid rgba(200, 180, 235, 0.2);
+            border-radius: 14px;
+            background: rgba(8, 3, 16, 0.48);
+            color: var(--text-primary);
+            font-family: 'Ma Shan Zheng', 'Noto Serif SC', serif;
+            font-size: 1rem;
+            resize: none;
+            transition: all 0.3s;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+        .plant-area textarea::placeholder { color: rgba(248, 240, 232, 0.35); }
+        .plant-area textarea:focus {
+            outline: none;
+            border-color: rgba(183, 148, 212, 0.5);
+            background: rgba(15, 6, 28, 0.58);
+            box-shadow: 0 0 18px rgba(124, 92, 191, 0.15);
+        }
+        .upload-zone {
+            border: 2px dashed rgba(200, 180, 235, 0.3);
+            border-radius: 14px;
+            padding: 26px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 16px;
+            background: rgba(8, 3, 16, 0.38);
+        }
+        .upload-zone:hover {
+            border-color: rgba(183, 148, 212, 0.55);
+            background: rgba(15, 6, 28, 0.48);
+        }
+        .upload-zone.dragover {
+            border-color: var(--accent-purple);
+            background: rgba(124, 92, 191, 0.12);
+        }
+        .upload-zone svg {
+            width: 34px;
+            height: 34px;
+            color: var(--text-soft);
+            margin-bottom: 10px;
+        }
+        .upload-zone .hint {
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 1px;
+        }
+        .upload-zone .sub-hint {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            margin-top: 7px;
+        }
+        .file-info {
+            display: none;
+            padding: 10px 12px;
+            background: rgba(124, 92, 191, 0.12);
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            border: 1px solid rgba(200, 180, 235, 0.15);
+        }
+        .file-info.visible { display: block; }
+        .plant-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 28px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Ma Shan Zheng', cursive;
+            background: linear-gradient(135deg, #8b6bc7, #5c3d8a);
+            color: #fff8f0;
+            box-shadow: 0 4px 22px rgba(124, 92, 191, 0.38);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: 3px;
+        }
+        .plant-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(124, 92, 191, 0.5);
+            background: linear-gradient(135deg, #9b7ed4, #6c4a9a);
+        }
+        .plant-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .brush-icon {
+            width: 20px;
+            height: 20px;
+            opacity: 0.9;
+        }
+        .plant-btn svg path {
+            fill: #f8f0e8;
+        }
+
+        /* 中间花海区域 */
+        .garden-area {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6px 0;
+        }
+        .flower-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 780px;
+            margin: 0 auto;
+        }
+        .flower-cluster {
+            position: relative;
+            aspect-ratio: 1;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 8px 6px 6px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(200, 180, 235, 0.12);
+            border-radius: 20px;
+        }
+        .flower-cluster:hover {
+            transform: translateY(-7px) scale(1.03);
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(200, 180, 235, 0.28);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28), 0 0 25px var(--cluster-glow);
+        }
+        .flower-cluster.glow {
+            animation: clusterGlow 2.2s ease-in-out infinite;
+        }
+        @keyframes clusterGlow {
+            0%, 100% { box-shadow: 0 0 20px var(--cluster-glow); }
+            50% { box-shadow: 0 0 45px var(--cluster-glow), 0 0 70px var(--cluster-glow); }
+        }
+
+        /* 新长出 / 重新绽放动效 */
+        .flower-cluster.bloom-new {
+            animation: bloomNew 1.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .flower-cluster.bloom-update {
+            animation: bloomUpdate 1.8s ease-in-out;
+        }
+        @keyframes bloomNew {
+            0% { transform: scale(0.7); opacity: 0.6; }
+            40% { transform: scale(1.14); opacity: 1; }
+            60% { transform: scale(0.96); }
+            80% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+        @keyframes bloomUpdate {
+            0% { transform: scale(1); filter: brightness(1); }
+            25% { transform: scale(1.1); filter: brightness(1.25); }
+            50% { transform: scale(0.98); filter: brightness(1.1); }
+            75% { transform: scale(1.06); filter: brightness(1.2); }
+            100% { transform: scale(1); filter: brightness(1); }
+        }
+
+        .month-tag {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 0.74rem;
+            color: var(--text-gold);
+            background: rgba(8, 3, 16, 0.55);
+            border: 1px solid rgba(200, 180, 235, 0.2);
+            border-radius: 10px;
+            padding: 2px 8px;
+            z-index: 5;
+            letter-spacing: 1px;
+        }
+        .memory-count {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            min-width: 22px;
+            height: 22px;
+            padding: 0 6px;
+            border-radius: 11px;
+            background: linear-gradient(135deg, rgba(124, 92, 191, 0.9), rgba(92, 61, 138, 0.9));
+            color: #fff;
+            font-size: 0.7rem;
+            font-family: 'Noto Serif SC', serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 5;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        /* 玻璃罩 */
+        .glass-dome {
+            width: 78%;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 35% 25%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.06) 35%, rgba(200, 180, 235, 0.08) 65%, rgba(200, 180, 235, 0.18) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow:
+                inset 0 0 22px rgba(255, 255, 255, 0.1),
+                0 8px 26px rgba(0, 0, 0, 0.28),
+                0 0 30px var(--cluster-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 6px;
+            transition: all 0.4s;
+        }
+        .flower-cluster:hover .glass-dome {
+            box-shadow:
+                inset 0 0 28px rgba(255, 255, 255, 0.14),
+                0 12px 32px rgba(0, 0, 0, 0.32),
+                0 0 45px var(--cluster-glow);
+        }
+        .cluster-image {
+            width: 70%;
+            height: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s;
+            filter: drop-shadow(0 5px 14px rgba(0, 0, 0, 0.35));
+        }
+        .flower-svg {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.3s;
+        }
+        .flower-cluster:hover .cluster-image {
+            transform: scale(1.08);
+        }
+        .cluster-labels {
+            text-align: center;
+            margin-top: 8px;
+            width: 100%;
+            padding: 0 4px;
+        }
+        .cluster-category {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.05rem;
+            color: var(--text-gold);
+            letter-spacing: 1px;
+            line-height: 1.2;
+        }
+        .cluster-name {
+            font-size: 0.78rem;
+            color: var(--text-soft);
+            margin-top: 3px;
+            letter-spacing: 1px;
+        }
+        .cluster-desc {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+            line-height: 1.3;
+            max-width: 96%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* 蝴蝶 */
+        .butterfly {
+            position: absolute;
+            width: 46px;
+            height: 46px;
+            top: -10px;
+            right: 2px;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+        .butterfly svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.95)) drop-shadow(0 0 28px rgba(255, 105, 180, 0.85));
+        }
+        .flower-cluster.has-butterfly {
+            animation: clusterGlow 2.5s ease-in-out infinite;
+        }
+        .flower-cluster.has-butterfly .butterfly {
+            opacity: 1;
+            animation: butterflyRest 4.5s ease-in-out infinite;
+        }
+        @keyframes butterflyRest {
+            0%, 100% {
+                transform: translateY(0) rotate(-10deg) scale(1);
+                filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.95)) drop-shadow(0 0 28px rgba(255, 105, 180, 0.85));
+            }
+            25% {
+                transform: translateY(-14px) rotate(-3deg) scale(1.12);
+                filter: drop-shadow(0 0 18px rgba(255, 215, 0, 1)) drop-shadow(0 0 36px rgba(255, 105, 180, 1));
+            }
+            50% {
+                transform: translateY(-7px) rotate(8deg) scale(1);
+                filter: drop-shadow(0 0 14px rgba(255, 215, 0, 0.95)) drop-shadow(0 0 30px rgba(255, 105, 180, 0.9));
+            }
+            75% {
+                transform: translateY(-17px) rotate(-2deg) scale(1.1);
+                filter: drop-shadow(0 0 22px rgba(255, 215, 0, 1)) drop-shadow(0 0 42px rgba(255, 105, 180, 1));
+            }
+        }
+
+        /* 花丛配色 */
+        .flower-cluster.plum { --cluster-glow: rgba(205, 92, 92, 0.65); }
+        .flower-cluster.apricot { --cluster-glow: rgba(255, 183, 77, 0.6); }
+        .flower-cluster.peach { --cluster-glow: rgba(244, 143, 177, 0.65); }
+        .flower-cluster.peony { --cluster-glow: rgba(239, 83, 80, 0.65); }
+        .flower-cluster.pomegranate { --cluster-glow: rgba(255, 112, 67, 0.65); }
+        .flower-cluster.lotus { --cluster-glow: rgba(248, 187, 208, 0.65); }
+        .flower-cluster.orchid { --cluster-glow: rgba(186, 104, 200, 0.65); }
+        .flower-cluster.osmanthus { --cluster-glow: rgba(255, 213, 79, 0.65); }
+        .flower-cluster.chrysanthemum { --cluster-glow: rgba(255, 202, 40, 0.65); }
+        .flower-cluster.hibiscus { --cluster-glow: rgba(255, 138, 101, 0.65); }
+        .flower-cluster.camellia { --cluster-glow: rgba(236, 64, 122, 0.65); }
+        .flower-cluster.narcissus { --cluster-glow: rgba(225, 190, 231, 0.65); }
+
+        /* 右侧：全局画像 + 对话面板 */
+        .profile-section {
+            margin-bottom: 14px;
+            padding-bottom: 14px;
+            border-bottom: 1px dashed rgba(200, 180, 235, 0.15);
+        }
+        .profile-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .profile-header h3 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.1rem;
+            color: var(--text-gold);
+            letter-spacing: 2px;
+            font-weight: 400;
+        }
+        .profile-btn {
+            padding: 6px 12px;
+            background: rgba(124, 92, 191, 0.18);
+            border: 1px solid rgba(200, 180, 235, 0.25);
+            border-radius: 16px;
+            font-size: 0.72rem;
+            color: var(--text-gold);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 1px;
+        }
+        .profile-btn:hover {
+            background: rgba(124, 92, 191, 0.32);
+            border-color: rgba(200, 180, 235, 0.45);
+        }
+        .profile-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .profile-empty {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 10px;
+        }
+        .profile-line {
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background: rgba(8, 3, 16, 0.45);
+            border: 1px solid rgba(200, 180, 235, 0.15);
+            border-radius: 12px;
+            font-size: 0.82rem;
+            line-height: 1.55;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.25s;
+            position: relative;
+        }
+        .profile-line:hover {
+            background: rgba(124, 92, 191, 0.18);
+            border-color: rgba(183, 148, 212, 0.45);
+        }
+        .profile-line .line-text {
+            margin-bottom: 6px;
+        }
+        .profile-line .line-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+        .profile-line .line-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .profile-line .flower-badge {
+            padding: 2px 8px;
+            background: rgba(124, 92, 191, 0.2);
+            border-radius: 10px;
+            color: var(--text-gold);
+        }
+        .profile-line .reject-btn {
+            padding: 3px 8px;
+            background: transparent;
+            border: 1px solid rgba(229, 115, 115, 0.4);
+            border-radius: 10px;
+            color: #e57373;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-family: 'Ma Shan Zheng', cursive;
+            transition: all 0.2s;
+        }
+        .profile-line .reject-btn:hover {
+            background: rgba(229, 115, 115, 0.15);
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 14px 10px;
+            overflow-y: auto;
+            min-height: 0;
+        }
+        .chat-message {
+            margin-bottom: 14px;
+            max-width: 92%;
+        }
+        .chat-message.user { margin-left: auto; }
+        .chat-message.user .message-content {
+            background: linear-gradient(135deg, #8b6bc7, #5c3d8a);
+            color: #fff8f0;
+            border-radius: 16px 16px 4px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .chat-message.bot .message-content {
+            background: rgba(8, 3, 16, 0.5);
+            color: var(--text-primary);
+            border-radius: 16px 16px 16px 4px;
+            border: 1px solid rgba(200, 180, 235, 0.15);
+        }
+        .message-content {
+            padding: 11px 13px;
+            line-height: 1.65;
+            font-size: 0.86rem;
+            font-family: 'Noto Serif SC', serif;
+        }
+        .message-content .flower-ref {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 9px;
+            background: rgba(124, 92, 191, 0.25);
+            border-radius: 12px;
+            font-size: 0.72rem;
+            margin: 3px 3px;
+            color: var(--text-gold);
+            cursor: pointer;
+            border: 1px solid rgba(200, 180, 235, 0.25);
+            transition: all 0.2s;
+        }
+        .message-content .flower-ref:hover {
+            background: rgba(124, 92, 191, 0.4);
+        }
+        .chat-input-area {
+            padding: 12px;
+            border-top: 1px dashed rgba(200, 180, 235, 0.15);
+        }
+        .quick-questions {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .quick-btn {
+            padding: 8px 14px;
+            background: rgba(124, 92, 191, 0.14);
+            border: 1px solid rgba(200, 180, 235, 0.22);
+            border-radius: 20px;
+            font-size: 0.78rem;
+            color: var(--text-soft);
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 1px;
+        }
+        .quick-btn:hover {
+            background: rgba(124, 92, 191, 0.28);
+            border-color: rgba(200, 180, 235, 0.4);
+            color: var(--text-gold);
+            transform: translateY(-1px);
+        }
+        .chat-input-row {
+            display: flex;
+            gap: 8px;
+        }
+        .chat-input-row input {
+            flex: 1;
+            padding: 11px 15px;
+            border: 1px solid rgba(200, 180, 235, 0.2);
+            border-radius: 22px;
+            font-size: 0.86rem;
+            background: rgba(8, 3, 16, 0.45);
+            color: var(--text-primary);
+            font-family: 'Noto Serif SC', serif;
+        }
+        .chat-input-row input::placeholder { color: rgba(248, 240, 232, 0.35); }
+        .chat-input-row input:focus {
+            outline: none;
+            border-color: rgba(183, 148, 212, 0.5);
+            box-shadow: 0 0 14px rgba(124, 92, 191, 0.15);
+        }
+        .send-btn {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #8b6bc7, #5c3d8a);
+            border: 1px solid rgba(200, 180, 235, 0.25);
+            border-radius: 50%;
+            color: #fff8f0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .send-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 4px 14px rgba(124, 92, 191, 0.4);
+        }
+
+        /* 底部文字 */
+        .page-footer {
+            text-align: center;
+            padding: 16px 20px 28px;
+            color: var(--text-soft);
+            font-size: 0.9rem;
+            letter-spacing: 3px;
+            font-family: 'Ma Shan Zheng', cursive;
+            position: relative;
+            z-index: 10;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+        }
+
+        /* 弹窗 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(8, 3, 16, 0.86);
+            backdrop-filter: blur(14px);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-overlay.visible { display: flex; }
+        .modal {
+            width: 90%;
+            max-width: 620px;
+            max-height: 88vh;
+            background: rgba(22, 10, 38, 0.94);
+            border: 1px solid rgba(200, 180, 235, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            animation: modalIn 0.35s ease;
+            color: var(--text-primary);
+            box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
+        }
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.92) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-header {
+            padding: 18px 22px;
+            border-bottom: 1px dashed rgba(200, 180, 235, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(124, 92, 191, 0.16), rgba(124, 92, 191, 0.04));
+        }
+        .modal-header h2 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.35rem;
+            color: var(--text-gold);
+        }
+        .close-modal {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: rgba(124, 92, 191, 0.15);
+            border-radius: 50%;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+        .close-modal:hover { background: rgba(124, 92, 191, 0.3); }
+        .modal-body { padding: 22px; max-height: 68vh; overflow-y: auto; }
+
+        /* 确认面板：认知卡片建议 */
+        .suggestion-intro {
+            color: var(--text-soft);
+            margin-bottom: 16px;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        .suggestion-card {
+            padding: 14px;
+            background: rgba(8, 3, 16, 0.45);
+            border: 1px dashed rgba(200, 180, 235, 0.22);
+            border-radius: 14px;
+            margin-bottom: 14px;
+        }
+        .suggestion-card.update {
+            border-color: rgba(183, 148, 212, 0.45);
+            background: rgba(124, 92, 191, 0.1);
+        }
+        .suggestion-card.new {
+            border-color: rgba(255, 214, 165, 0.4);
+            background: rgba(255, 214, 165, 0.08);
+        }
+        .suggestion-card .suggestion-type {
+            font-size: 0.72rem;
+            color: var(--text-gold);
+            margin-bottom: 8px;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 1px;
+        }
+        .suggestion-card .old-text {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            margin-bottom: 6px;
+            line-height: 1.5;
+        }
+        .suggestion-card .arrow {
+            color: var(--text-gold);
+            font-size: 0.9rem;
+            margin: 4px 0;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        .suggestion-card .new-text {
+            width: 100%;
+            min-height: 54px;
+            padding: 10px;
+            border: 1px solid rgba(200, 180, 235, 0.2);
+            border-radius: 10px;
+            background: rgba(8, 3, 16, 0.55);
+            color: var(--text-primary);
+            font-family: 'Noto Serif SC', serif;
+            font-size: 0.85rem;
+            resize: vertical;
+            line-height: 1.5;
+        }
+        .suggestion-card .new-text:focus {
+            outline: none;
+            border-color: rgba(183, 148, 212, 0.5);
+        }
+        .suggestion-card .reason {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            line-height: 1.45;
+        }
+        .suggestion-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            justify-content: flex-end;
+        }
+        .suggestion-actions button {
+            padding: 7px 14px;
+            border-radius: 16px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 1px;
+            border: 1px solid rgba(200, 180, 235, 0.25);
+        }
+        .suggestion-actions .accept-btn {
+            background: linear-gradient(135deg, #8b6bc7, #5c3d8a);
+            color: #fff8f0;
+        }
+        .suggestion-actions .accept-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 12px rgba(124, 92, 191, 0.35);
+        }
+        .suggestion-actions .reject-btn {
+            background: transparent;
+            color: var(--text-soft);
+        }
+        .suggestion-actions .reject-btn:hover {
+            background: rgba(229, 115, 115, 0.12);
+            border-color: rgba(229, 115, 115, 0.35);
+            color: #e57373;
+        }
+        .suggestion-actions .status {
+            font-size: 0.75rem;
+            color: var(--text-gold);
+            align-self: center;
+            margin-right: auto;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 18px;
+            justify-content: flex-end;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: 1px solid rgba(200, 180, 235, 0.25);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 1px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #8b6bc7, #5c3d8a);
+            color: #fff8f0;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px rgba(124, 92, 191, 0.35);
+        }
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .btn-secondary {
+            background: rgba(124, 92, 191, 0.12);
+            color: var(--text-primary);
+        }
+        .btn-secondary:hover {
+            background: rgba(124, 92, 191, 0.22);
+            border-color: rgba(200, 180, 235, 0.4);
+        }
+
+        /* 分类详情弹窗 */
+        .detail-cluster {
+            width: 110px;
+            height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+            filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.35));
+        }
+        .detail-cluster .flower-svg { width: 100%; height: 100%; }
+        .section-detail h3 {
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 1.45rem;
+            color: var(--text-gold);
+            margin-bottom: 6px;
+        }
+        .section-detail .meaning {
+            font-size: 0.82rem;
+            color: var(--text-soft);
+            margin-bottom: 16px;
+        }
+        .card-list .card-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px dashed rgba(200, 180, 235, 0.15);
+            text-align: left;
+        }
+        .card-list .card-item:last-child { border-bottom: none; }
+        .card-list .card-flower-icon {
+            width: 34px;
+            height: 34px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+        }
+        .card-list .card-flower-icon .flower-svg { width: 100%; height: 100%; }
+        .card-list .card-item p {
+            font-size: 0.86rem;
+            color: var(--text-primary);
+            line-height: 1.55;
+        }
+        .card-list .card-meta {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* 移动端标签页 */
+        .mobile-tabs {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(12, 5, 22, 0.94);
+            border-top: 1px solid rgba(200, 180, 235, 0.18);
+            z-index: 200;
+            backdrop-filter: blur(14px);
+        }
+        .mobile-tabs .tab-list {
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0 10px;
+        }
+        .mobile-tabs .tab {
+            flex: 1;
+            text-align: center;
+            padding: 6px;
+            color: var(--text-muted);
+            font-size: 0.74rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 1px;
+        }
+        .mobile-tabs .tab.active {
+            color: var(--text-gold);
+            border-bottom-color: var(--accent-purple);
+        }
+        .mobile-tabs .tab svg {
+            width: 22px;
+            height: 22px;
+            margin-bottom: 3px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* 加载状态 */
+        .loading-state {
+            text-align: center;
+            padding: 40px;
+        }
+        .loading-spinner {
+            width: 42px;
+            height: 42px;
+            border: 3px solid rgba(124, 92, 191, 0.15);
+            border-top: 3px solid var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 14px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* 响应式 */
+        @media (max-width: 1200px) {
+            .main-layout {
+                grid-template-columns: 280px 1fr 320px;
+                gap: 20px;
+                padding: 0 20px 22px;
+            }
+            .flower-grid { gap: 12px; }
+        }
+
+        @media (max-width: 950px) {
+            .main-layout {
+                display: block;
+                padding-bottom: 0;
+            }
+            .glass-panel, .garden-area {
+                display: none;
+                position: fixed;
+                top: 145px;
+                left: 12px;
+                right: 12px;
+                bottom: 74px;
+                z-index: 100;
+            }
+            .glass-panel.active, .garden-area.active { display: flex; }
+            .mobile-tabs { display: block; }
+            .header-section { padding-top: 20px; padding-bottom: 20px; }
+            .header-section h1 { font-size: 2.6rem; letter-spacing: 10px; }
+            .header-section .english { font-size: 0.75rem; letter-spacing: 6px; }
+            .header-section .main-title { font-size: 1.15rem; }
+            .header-section .sub-title { font-size: 0.75rem; }
+            .flower-grid { max-width: 100%; height: 100%; gap: 10px; }
+            .page-footer { padding-bottom: 86px; }
+        }
+
+        @media (min-width: 951px) {
+            .glass-panel, .garden-area { display: flex !important; position: relative; top: auto; left: auto; right: auto; bottom: auto; z-index: 10; }
+        }
+
+        .demo-badge {
+            position: absolute;
+            top: 18px;
+            right: 28px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(255, 214, 165, 0.15);
+            border: 1px solid rgba(255, 214, 165, 0.35);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #ffd6a5;
+        }
+        .exit-demo-btn {
+            padding: 3px 10px;
+            background: rgba(229, 115, 115, 0.2);
+            border: 1px solid rgba(229, 115, 115, 0.4);
+            border-radius: 12px;
+            color: #e57373;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+        .exit-demo-btn:hover {
+            background: rgba(229, 115, 115, 0.3);
+        }
+        .demo-entry-btn {
+            margin-top: 14px;
+            padding: 10px 24px;
+            background: rgba(183, 148, 212, 0.15);
+            border: 1px solid rgba(183, 148, 212, 0.4);
+            border-radius: 20px;
+            color: #b794d4;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            font-family: 'Ma Shan Zheng', cursive;
+            letter-spacing: 2px;
+        }
+        .demo-entry-btn:hover {
+            background: rgba(183, 148, 212, 0.25);
+            border-color: rgba(183, 148, 212, 0.6);
+            transform: translateY(-1px);
+        }
+        .demo-entry-btn.hidden { display: none; }
+
+        .demo-user-card {
+            padding: 16px;
+            background: rgba(8, 3, 16, 0.45);
+            border: 1px dashed rgba(200, 180, 235, 0.22);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.25s;
+        }
+        .demo-user-card:hover {
+            background: rgba(124, 92, 191, 0.15);
+            border-color: rgba(183, 148, 212, 0.45);
+            transform: translateY(-2px);
+        }
+        .demo-user-card .user-name {
+            font-size: 1.1rem;
+            color: var(--text-gold);
+            font-family: 'Ma Shan Zheng', cursive;
+            margin-bottom: 4px;
+        }
+        .demo-user-card .user-desc {
+            font-size: 0.82rem;
+            color: var(--text-soft);
+            margin-bottom: 8px;
+        }
+        .demo-user-card .user-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .demo-user-card .tag {
+            padding: 3px 10px;
+            background: rgba(124, 92, 191, 0.2);
+            border-radius: 10px;
+            font-size: 0.72rem;
+            color: var(--text-gold);
+        }
+        .demo-user-card .card-count {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .demo-sample-text-item {
+            padding: 10px 12px;
+            background: rgba(8, 3, 16, 0.4);
+            border: 1px solid rgba(200, 180, 235, 0.15);
+            border-radius: 10px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .demo-sample-text-item:hover {
+            background: rgba(124, 92, 191, 0.15);
+            border-color: rgba(183, 148, 212, 0.35);
+        }
+        .demo-sample-text-item .text-title {
+            font-size: 0.8rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .demo-sample-text-item .text-preview {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .demo-quick-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .demo-quick-question-btn {
+            padding: 6px 12px;
+            background: rgba(124, 92, 191, 0.12);
+            border: 1px solid rgba(200, 180, 235, 0.2);
+            border-radius: 16px;
+            font-size: 0.75rem;
+            color: var(--text-soft);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Noto Serif SC', serif;
+        }
+        .demo-quick-question-btn:hover {
+            background: rgba(124, 92, 191, 0.25);
+            border-color: rgba(183, 148, 212, 0.4);
+            color: var(--text-gold);
+        }
+    </style>
+</head>
+<body>
+    <!-- SVG 渐变定义 -->
+    <svg width="0" height="0" style="position:absolute;">
+        <defs>
+            <linearGradient id="butterflyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#ff8a65;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#ba68c8;stop-opacity:1" />
+            </linearGradient>
+            <linearGradient id="fieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#1a0f2e;stop-opacity:0.2" />
+                <stop offset="50%" style="stop-color:#1a0f2e;stop-opacity:0.7" />
+                <stop offset="100%" style="stop-color:#0a0312;stop-opacity:1" />
+            </linearGradient>
+        </defs>
+    </svg>
+
+    <!-- 黄昏背景 -->
+    <div class="bg-layer"></div>
+    <div class="bg-overlay"></div>
+    <svg class="bg-field" viewBox="0 0 1440 360" preserveAspectRatio="none">
+        <path fill="url(#fieldGrad)" d="M0,180 C320,260 640,120 960,200 C1200,260 1320,160 1440,200 L1440,360 L0,360 Z"/>
+        <path fill="#0a0312" d="M0,240 C360,300 720,200 1080,260 C1260,290 1380,240 1440,260 L1440,360 L0,360 Z" opacity="0.8"/>
+    </svg>
+
+    <!-- 漂浮光点 -->
+    <div class="light-particle" style="width:4px;height:4px;top:15%;left:12%;animation-duration:7s;animation-delay:0s;"></div>
+    <div class="light-particle" style="width:3px;height:3px;top:25%;left:25%;animation-duration:9s;animation-delay:1s;"></div>
+    <div class="light-particle" style="width:5px;height:5px;top:20%;left:45%;animation-duration:8s;animation-delay:2s;"></div>
+    <div class="light-particle" style="width:3px;height:3px;top:35%;left:65%;animation-duration:10s;animation-delay:0.5s;"></div>
+    <div class="light-particle" style="width:4px;height:4px;top:18%;left:80%;animation-duration:7.5s;animation-delay:1.5s;"></div>
+    <div class="light-particle" style="width:3px;height:3px;top:45%;left:15%;animation-duration:9.5s;animation-delay:2.5s;"></div>
+    <div class="light-particle" style="width:5px;height:5px;top:55%;left:35%;animation-duration:8.5s;animation-delay:3s;"></div>
+    <div class="light-particle" style="width:4px;height:4px;top:48%;left:55%;animation-duration:7s;animation-delay:1s;"></div>
+    <div class="light-particle" style="width:3px;height:3px;top:60%;left:78%;animation-duration:9s;animation-delay:2s;"></div>
+    <div class="light-particle" style="width:4px;height:4px;top:72%;left:22%;animation-duration:8s;animation-delay:0s;"></div>
+    <div class="light-particle" style="width:5px;height:5px;top:68%;left:48%;animation-duration:10s;animation-delay:1.8s;"></div>
+    <div class="light-particle" style="width:3px;height:3px;top:75%;left:68%;animation-duration:7.2s;animation-delay:2.8s;"></div>
+    <div class="light-particle" style="width:4px;height:4px;top:85%;left:88%;animation-duration:9.2s;animation-delay:0.8s;"></div>
+    <div class="light-particle" style="width:3px;height:3px;top:82%;left:8%;animation-duration:8.2s;animation-delay:3.5s;"></div>
+    <div class="light-particle" style="width:4px;height:4px;top:30%;left:92%;animation-duration:7.8s;animation-delay:1.2s;"></div>
+
+    <!-- 飘落花瓣 -->
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+    <div class="falling-petal"></div>
+
+    <div class="page-wrapper">
+        <!-- 标题区 -->
+        <header class="header-section">
+            <div class="demo-badge" id="demoBadge" style="display:none;">
+                <span>🌸 演示模式</span>
+                <button class="exit-demo-btn" onclick="exitDemoMode()">退出</button>
+            </div>
+            <h1>朝花夕拾</h1>
+            <div class="english">Flower Dance</div>
+            <div class="main-title">种下你的碎片，开出你的画像。</div>
+            <div class="sub-title">每一朵花都代表对你的一个认知，汇聚成独一无二的你。</div>
+            <button class="demo-entry-btn" id="demoEntryBtn" onclick="openDemoModal()">进入演示模式</button>
+        </header>
+
+        <!-- 三栏主内容 -->
+        <main class="main-layout" id="mainLayout">
+            <!-- 左侧：种花面板 -->
+            <section class="glass-panel active" id="plantPanel">
+                <div class="panel-header">
+                    <h2>种花 · 记录自己</h2>
+                    <p>写下或上传一段记忆，长出新的认知</p>
+                </div>
+                <div class="panel-body">
+                    <div class="plant-area">
+                        <textarea id="inputText" placeholder="写下今天发生的事、一段心情、一个想法..."></textarea>
+                        <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                            <div class="hint">点击或拖拽上传文件</div>
+                            <div class="sub-hint">支持 文本 / PDF / Word / 图片</div>
+                        </div>
+                        <input type="file" id="fileInput" style="display:none" accept=".txt,.pdf,.doc,.docx,.png,.jpg,.jpeg" onchange="handleFileSelect(event)">
+                        <div class="file-info" id="fileInfo"></div>
+                        <button class="plant-btn" id="plantBtn" onclick="startPlanting()">
+                            <svg class="brush-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 5v14M5 12h14"/>
+                            </svg>
+                            种下这段记忆
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 中间：花海 -->
+            <section class="garden-area active" id="gardenArea">
+                <div class="flower-grid" id="flowerGrid"></div>
+            </section>
+
+            <!-- 右侧：全局画像 + 拾花面板 -->
+            <section class="glass-panel active" id="chatPanel">
+                <div class="panel-header">
+                    <h2>拾花 · 认识自己</h2>
+                    <p>全局画像与花海对话</p>
+                </div>
+                <div class="panel-body">
+                    <!-- 全局画像区域 -->
+                    <div class="profile-section" id="profileSection">
+                        <div class="profile-header">
+                            <h3>全局画像</h3>
+                            <button class="profile-btn" id="generateProfileBtn" onclick="generateGlobalProfile()">生成画像</button>
+                        </div>
+                        <div id="profileContent">
+                            <p class="profile-empty">当三个以上花丛各有两朵以上花朵时，可生成跨分类全局画像。</p>
+                        </div>
+                    </div>
+
+                    <!-- 对话区域 -->
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-message bot">
+                            <div class="message-content">你好，我是花海AI。点击花丛可以查看每朵「认知之花」，也可以问我问题，我会依据你的记忆花海作答。</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <div class="quick-questions">
+                            <button class="quick-btn" onclick="sendQuickQuestion('我最近要不要换工作？')">我最近要不要换工作？</button>
+                            <button class="quick-btn" onclick="sendQuickQuestion('最近人际关系让我有点困扰')">最近人际关系让我有点困扰</button>
+                        </div>
+                        <div class="chat-input-row">
+                            <input type="text" id="chatInput" placeholder="输入你的问题...">
+                            <button class="send-btn" onclick="sendMessage()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                                    <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部文字 -->
+        <footer class="page-footer">你的记忆，值得被温柔地记得</footer>
+    </div>
+
+    <!-- 移动端标签页 -->
+    <nav class="mobile-tabs" id="mobileTabs">
+        <div class="tab-list">
+            <div class="tab" data-tab="plant" onclick="switchTab('plant')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+                种花
+            </div>
+            <div class="tab active" data-tab="garden" onclick="switchTab('garden')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                花海
+            </div>
+            <div class="tab" data-tab="chat" onclick="switchTab('chat')">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                </svg>
+                拾花
+            </div>
+        </div>
+    </nav>
+
+    <!-- 解析/确认弹窗 -->
+    <div class="modal-overlay" id="parseModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">🌸 AI 认知卡片建议</h2>
+                <button class="close-modal" onclick="closeParseModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="parseModalBody">
+                <div class="loading-state" id="loadingState">
+                    <div class="loading-spinner"></div>
+                    <p style="color:var(--text-soft);font-size:0.9rem;">AI正在解析并生成认知卡片建议...</p>
+                    <p id="extractStatus" style="color:var(--text-muted);font-size:0.75rem;margin-top:8px;"></p>
+                </div>
+                <div class="loading-state" id="parseErrorState" style="display:none;">
+                    <p style="color:#e57373;font-size:1rem;font-family:'Ma Shan Zheng',cursive;margin-bottom:10px;">解析失败</p>
+                    <p id="parseErrorMessage" style="color:var(--text-soft);font-size:0.85rem;line-height:1.6;"></p>
+                    <div class="btn-row" style="justify-content:center;margin-top:20px;">
+                        <button class="btn btn-secondary" onclick="closeParseModal()">关闭</button>
+                    </div>
+                </div>
+                <div id="parseResultContent" style="display:none;">
+                    <p class="suggestion-intro" id="suggestionIntro">AI 根据新内容提出以下认知卡片更新或新建建议，你可逐条接受、编辑后接受，或拒绝。</p>
+                    <div id="resultList"></div>
+                    <div class="btn-row">
+                        <button class="btn btn-secondary" onclick="closeParseModal()">取消</button>
+                        <button class="btn btn-primary" id="confirmAllBtn" onclick="confirmAllSuggestions()">确认所选</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 分类详情弹窗 -->
+    <div class="modal-overlay" id="sectionModal">
+        <div class="modal section-detail">
+            <div class="modal-header">
+                <h2>花丛记忆</h2>
+                <button class="close-modal" onclick="closeSectionModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align:center;padding-top:25px;">
+                <div class="detail-cluster" id="detailFlowerImg"></div>
+                <h3 id="detailCategoryName"></h3>
+                <p class="meaning" id="detailMeaning"></p>
+                <div class="card-list" id="detailCardList"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 直接双击打开本文件时，使用浏览器内的离线演示数据。
+        // 通过 FastAPI / Electron 打开时仍沿用原有线上 API，不改变界面与线上行为。
+        const IS_OFFLINE_DEMO = window.location.protocol === 'file:' ||
+            new URLSearchParams(window.location.search).get('offline') === '1';
+
+        if (IS_OFFLINE_DEMO) {
+            const offlineCategoryKeys = [
+                'plum', 'apricot', 'peach', 'peony', 'pomegranate', 'lotus',
+                'orchid', 'osmanthus', 'chrysanthemum', 'hibiscus', 'camellia', 'narcissus'
+            ];
+            const offlineKeywords = {
+                plum: ['性格', '内向', '外向', '坚持', '勇敢', '自信', '独立'],
+                apricot: ['学习', '课程', '考试', '复习', '阅读', '练习', '论文'],
+                peach: ['恋爱', '喜欢', '关系', '约会', '伴侣', '感情'],
+                peony: ['技能', '能力', '代码', '设计', '写作', '开发', '作品'],
+                pomegranate: ['家人', '父母', '家庭', '妈妈', '爸爸', '回家'],
+                lotus: ['睡眠', '熬夜', '运动', '健康', '身体', '休息', '饮食'],
+                orchid: ['朋友', '社交', '同事', '聚会', '聊天', '团队', '孤独'],
+                osmanthus: ['工作', '项目', '会议', '公司', '职业', '加班', '客户'],
+                chrysanthemum: ['旅行', '电影', '音乐', '画画', '游戏', '摄影', '兴趣'],
+                hibiscus: ['焦虑', '开心', '压力', '情绪', '难过', '紧张', '平静'],
+                camellia: ['每天', '早起', '习惯', '计划', '坚持', '规律', '清单'],
+                narcissus: ['决定', '选择', '犹豫', '方向', '取舍', '考虑']
+            };
+            const offlineStore = {
+                cards: Object.fromEntries(offlineCategoryKeys.map(key => [key, []])),
+                isDemoMode: false,
+                profileLines: []
+            };
+            const offlineNow = () => new Date().toISOString().slice(0, 19);
+            const offlineResponse = (data, status = 200) => new Response(JSON.stringify(data), {
+                status,
+                headers: { 'Content-Type': 'application/json; charset=utf-8' }
+            });
+            const offlineCard = (category, text) => ({
+                id: `offline_${Date.now()}_${Math.random().toString(16).slice(2)}`,
+                category,
+                card_text: text.slice(0, 60),
+                created_at: offlineNow(),
+                updated_at: offlineNow()
+            });
+            const offlineCategoriesFor = (text) => {
+                const matches = offlineCategoryKeys.filter(key =>
+                    offlineKeywords[key].some(keyword => text.includes(keyword))
+                );
+                return matches.length ? matches.slice(0, 4) : ['plum', 'narcissus'];
+            };
+            const offlineSeedDemo = () => {
+                const seed = {
+                    plum: '面对陌生任务时，愿意先尝试再寻求帮助。',
+                    apricot: '持续学习新课程，并记录每次练习的收获。',
+                    peach: '认真表达自己的感受，也愿意倾听关系中的反馈。',
+                    peony: '完成项目功能后，主动整理了可复用的方法。',
+                    pomegranate: '和家人共进晚餐，分享最近的工作近况。',
+                    lotus: '注意到连续熬夜后状态下降，准备恢复睡眠节奏。',
+                    orchid: '与朋友和同事讨论方案，协作让问题更容易推进。',
+                    osmanthus: '完成一个重要的工作项目，并做了阶段复盘。',
+                    chrysanthemum: '周末通过阅读、散步和音乐恢复精力。',
+                    hibiscus: '截止日期临近时会紧张，完成后会记录成就感。',
+                    camellia: '开始用晨间清单安排当天最重要的三件事。',
+                    narcissus: '正在比较两个发展方向，先明确长期目标再行动。'
+                };
+                offlineStore.cards = Object.fromEntries(offlineCategoryKeys.map(key => [
+                    key,
+                    [offlineCard(key, seed[key]), offlineCard(key, `持续观察：${seed[key]}`)]
+                ]));
+            };
+            const offlineProfile = () => {
+                const active = offlineCategoryKeys.filter(key => offlineStore.cards[key].length > 0);
+                const names = active.slice(0, 4).join('、');
+                return [
+                    { id: 'offline_profile_1', text: `你已经在 ${names} 等维度留下了可追溯的生活片段。`, card_ids: active.slice(0, 3).flatMap(key => offlineStore.cards[key].slice(0, 1).map(card => card.id)) },
+                    { id: 'offline_profile_2', text: '这些记录来自本地演示规则；继续补充具体场景，花海会呈现更多关联。', card_ids: active.slice(3, 6).flatMap(key => offlineStore.cards[key].slice(0, 1).map(card => card.id)) }
+                ];
+            };
+            const originalFetch = window.fetch.bind(window);
+            window.fetch = async (input, init = {}) => {
+                const rawUrl = typeof input === 'string' ? input : input.url;
+                const url = new URL(rawUrl, window.location.href);
+                const path = url.pathname;
+                if (!path.includes('/api/')) return originalFetch(input, init);
+
+                if (path.endsWith('/api/cards')) {
+                    const valid = offlineCategoryKeys.filter(key => offlineStore.cards[key].length >= 2);
+                    return offlineResponse({ categories: offlineStore.cards, global_profile_available: valid.length >= 3 });
+                }
+                if (path.endsWith('/api/upload-content')) {
+                    const form = init.body;
+                    const text = form instanceof FormData ? (form.get('text') || form.get('file')?.name || '') : '';
+                    const categories = offlineCategoriesFor(String(text));
+                    const suggestions = categories.map((category, index) => ({
+                        type: 'new', category, card_id: null,
+                        proposed_text: `${String(text).slice(0, 52)}${String(text).length > 52 ? '…' : ''}` || '从离线文件中识别到一段待确认的内容。',
+                        reason: '本地规则匹配到该维度的关键词（演示）。',
+                        source_ids: [`offline_source_${Date.now()}_${index}`]
+                    }));
+                    return offlineResponse({ upload_id: `offline_upload_${Date.now()}`, involved_categories: categories, suggestions });
+                }
+                if (path.endsWith('/api/confirm-cards')) {
+                    const payload = JSON.parse(init.body || '{}');
+                    const created = (payload.decisions || []).map(decision => {
+                        const card = offlineCard(decision.category, decision.new_text || '一条新的离线演示记忆。');
+                        offlineStore.cards[decision.category].push(card);
+                        return card;
+                    });
+                    return offlineResponse({ created, updated: [], updated_categories: [...new Set(created.map(card => card.category))] });
+                }
+                if (path.endsWith('/api/global-profile')) {
+                    offlineStore.profileLines = offlineProfile();
+                    return offlineResponse({ available: true, generated_at: offlineNow(), lines: offlineStore.profileLines });
+                }
+                if (path.endsWith('/api/reject-profile-line')) {
+                    const payload = JSON.parse(init.body || '{}');
+                    return offlineResponse({ success: true, line_id: payload.line_id, rejections: 1 });
+                }
+                if (path.endsWith('/api/chat')) {
+                    const payload = JSON.parse(init.body || '{}');
+                    const categories = offlineCategoriesFor(payload.question || '');
+                    const evidence = categories.flatMap(key => offlineStore.cards[key].slice(-1)).map(card => card.card_text);
+                    const answer = evidence.length
+                        ? `我在你的相关卡片中看到了：${evidence.join('；')}。\n\n离线演示归纳：这些具体片段提示你正在持续关注这个主题。你可以选择其中一件最小的行动，在下一次记录中观察它带来的变化。`
+                        : '我还没有足够的卡片。请先种下一段记忆，或进入演示模式加载示例数据。';
+                    return offlineResponse({ answer, categories, referenced_cards: [] });
+                }
+                if (path.endsWith('/api/demo/users')) return offlineResponse({ users: [
+                    { id: 'demo_user_a', name: '张小明', description: '刚毕业研究生，学习积极、工作焦虑', tags: ['学习', '成长', '工作'], card_count: 24 },
+                    { id: 'demo_user_b', name: '李明', description: 'AI 工程师，长期加班、兴趣广泛', tags: ['工作', '健康', '兴趣'], card_count: 24 },
+                    { id: 'demo_user_c', name: '王艺涵', description: '自由创作者，情绪丰富、热爱旅行', tags: ['创作', '情绪', '旅行'], card_count: 24 }
+                ] });
+                if (path.endsWith('/api/demo/enter')) {
+                    offlineSeedDemo();
+                    offlineStore.isDemoMode = true;
+                    const userId = url.searchParams.get('user_id') || 'demo_user_a';
+                    const names = { demo_user_a: '张小明', demo_user_b: '李明', demo_user_c: '王艺涵' };
+                    return offlineResponse({ success: true, user: { id: userId, name: names[userId] || '演示访客' }, cards_count: 24 });
+                }
+                if (path.endsWith('/api/demo/exit')) {
+                    offlineStore.cards = Object.fromEntries(offlineCategoryKeys.map(key => [key, []]));
+                    offlineStore.isDemoMode = false;
+                    return offlineResponse({ success: true });
+                }
+                if (path.endsWith('/api/demo/status')) return offlineResponse({ is_demo_mode: offlineStore.isDemoMode });
+                if (path.endsWith('/api/demo/sample-texts')) return offlineResponse({ texts: [
+                    { filename: '01_work_pressure.txt', content: '这周我完成了一个工作项目，也学习了新的开发技巧。不过连续几天熬夜，感到有些焦虑。' },
+                    { filename: '02_study_progress.txt', content: '我为课程制定了复习计划，每天练习一小时，并记录自己掌握的新知识。' },
+                    { filename: '03_habit_morning.txt', content: '我决定从下周开始早起运动，用清单安排每天最重要的三件事。' }
+                ] });
+                if (path.endsWith('/api/demo/questions')) return offlineResponse({ questions: [
+                    '我最近的压力主要来自哪里？', '我的学习方式有什么特点？', '我应该关注什么习惯？', '我最近在做哪些选择？'
+                ] });
+                return offlineResponse({ error: '离线演示未实现该接口。' }, 404);
+            };
+        }
+
+        // 花神配置
+        const flowerCategories = {
+            plum: { name: '梅花', category: '性格特征', meaning: '傲雪凌霜，喻坚韧高洁的内在品格' },
+            apricot: { name: '杏花', category: '学习/成长', meaning: '杏坛讲学，孔子治学的典故' },
+            peach: { name: '桃花', category: '情感/恋爱', meaning: '"桃花运"，最经典的情感意象' },
+            peony: { name: '牡丹', category: '技能/能力', meaning: '花中之王，喻技艺登峰造极' },
+            pomegranate: { name: '石榴花', category: '家人/家庭', meaning: '多子多福，家庭兴旺的直接象征' },
+            lotus: { name: '荷花', category: '健康/身心', meaning: '出淤泥而不染，身心清净养性' },
+            orchid: { name: '兰花', category: '社交/朋友', meaning: '金兰之交、芝兰之室，友谊的经典喻体' },
+            osmanthus: { name: '桂花', category: '工作/事业', meaning: '蟾宫折桂，功成名就的科举意象' },
+            chrysanthemum: { name: '菊花', category: '兴趣/喜好', meaning: '采菊东篱下，闲适雅趣的隐逸之趣' },
+            hibiscus: { name: '木芙蓉', category: '情绪反应模式', meaning: '一日三变色，喻情绪的起伏流转' },
+            camellia: { name: '山茶', category: '行为习惯', meaning: '花期绵长耐寒，喻日复一日的坚持' },
+            narcissus: { name: '水仙', category: '思考/决策模式', meaning: '凌波孤高，顾影自照喻自省内观' }
+        };
+
+        const categoryKeys = ['plum', 'apricot', 'peach', 'peony', 'pomegranate', 'lotus', 'orchid', 'osmanthus', 'chrysanthemum', 'hibiscus', 'camellia', 'narcissus'];
+        const monthLabels = ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'];
+
+        let API_BASE_URL = 'http://localhost:8000';
+
+        async function initApiUrl() {
+            if (window.electronAPI) {
+                try {
+                    API_BASE_URL = await window.electronAPI.getApiUrl();
+                } catch (e) {
+                    console.log('Not running in Electron, using default API URL');
+                }
+            }
+        }
+
+        let allCards = {};
+        let uploadSuggestions = [];
+        let selectedFile = null;
+        let globalProfileLines = [];
+
+        // 花丛渲染（用 SVG/CSS 绘制，不依赖外部图片服务）
+        function renderFlowerSVG(key) {
+            const colorMap = {
+                plum:       { main: '#c84b5b', light: '#f5a4ad', accent: '#8b3a3a' },
+                apricot:    { main: '#ffb88c', light: '#ffd9b8', accent: '#d4824a' },
+                peach:      { main: '#ff9eb5', light: '#ffc8d4', accent: '#d65a7a' },
+                peony:      { main: '#ff6b8a', light: '#ff9eb5', accent: '#c44569' },
+                pomegranate:{ main: '#ff4d4d', light: '#ff8080', accent: '#a02525' },
+                lotus:      { main: '#ffb6c1', light: '#ffd6e0', accent: '#d4859a' },
+                orchid:     { main: '#9370db', light: '#c4a4ed', accent: '#6a4ba8' },
+                osmanthus:  { main: '#ffd700', light: '#ffeb80', accent: '#c8a800' },
+                chrysanthemum:{ main: '#daa520', light: '#f0c860', accent: '#a07a00' },
+                hibiscus:   { main: '#ff6b9d', light: '#ff9ec0', accent: '#c44577' },
+                camellia:   { main: '#dc143c', light: '#ff6b80', accent: '#a00d2a' },
+                narcissus:  { main: '#fff8dc', light: '#fffce8', accent: '#d4c878' }
+            };
+            const c = colorMap[key];
+            const id = 'svg_' + key + '_' + Math.random().toString(36).slice(2, 8);
+            const flowerType = {
+                plum: { petals: 5, r1: 12, r2: 22 },
+                apricot: { petals: 5, r1: 10, r2: 20 },
+                peach: { petals: 5, r1: 11, r2: 22 },
+                peony: { petals: 12, r1: 8, r2: 18 },
+                pomegranate: { petals: 6, r1: 10, r2: 18 },
+                lotus: { petals: 10, r1: 12, r2: 20 },
+                orchid: { petals: 5, r1: 8, r2: 20 },
+                osmanthus: { petals: 6, r1: 6, r2: 14 },
+                chrysanthemum: { petals: 18, r1: 5, r2: 16 },
+                hibiscus: { petals: 5, r1: 14, r2: 22 },
+                camellia: { petals: 8, r1: 10, r2: 18 },
+                narcissus: { petals: 6, r1: 12, r2: 18 }
+            };
+            const f = flowerType[key];
+            const positions = [
+                { x: 50, y: 35, s: 1.0 },
+                { x: 30, y: 50, s: 0.7 },
+                { x: 70, y: 55, s: 0.75 },
+                { x: 40, y: 72, s: 0.6 },
+                { x: 60, y: 75, s: 0.65 }
+            ];
+            let flowers = '';
+            positions.forEach((pos) => {
+                const cx = pos.x, cy = pos.y, s = pos.s;
+                let petals = '';
+                for (let i = 0; i < f.petals; i++) {
+                    const angle = (i * 360 / f.petals);
+                    const px = cx + Math.cos(angle * Math.PI / 180) * f.r2 * s;
+                    const py = cy + Math.sin(angle * Math.PI / 180) * f.r2 * s;
+                    petals += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(f.r1 * s * 0.7).toFixed(1)}" ry="${(f.r1 * s).toFixed(1)}" fill="${c.light}" opacity="0.85" transform="rotate(${angle} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;
+                }
+                let innerPetals = '';
+                for (let i = 0; i < f.petals; i++) {
+                    const angle = (i * 360 / f.petals + 180 / f.petals);
+                    const px = cx + Math.cos(angle * Math.PI / 180) * f.r1 * s * 0.6;
+                    const py = cy + Math.sin(angle * Math.PI / 180) * f.r1 * s * 0.6;
+                    innerPetals += `<ellipse cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" rx="${(f.r1 * s * 0.5).toFixed(1)}" ry="${(f.r1 * s * 0.7).toFixed(1)}" fill="${c.main}" opacity="0.9" transform="rotate(${angle} ${px.toFixed(1)} ${py.toFixed(1)})"/>`;
+                }
+                const center = `<circle cx="${cx}" cy="${cy}" r="${(f.r1 * s * 0.5).toFixed(1)}" fill="${c.accent}"/>`;
+                flowers += `<g>${petals}${innerPetals}${center}</g>`;
+            });
+            const leaves = `
+                <ellipse cx="20" cy="80" rx="8" ry="3" fill="#3a5a3a" opacity="0.7" transform="rotate(-30 20 80)"/>
+                <ellipse cx="80" cy="82" rx="8" ry="3" fill="#3a5a3a" opacity="0.7" transform="rotate(30 80 82)"/>
+                <ellipse cx="15" cy="65" rx="6" ry="2.5" fill="#4a6a4a" opacity="0.6" transform="rotate(-45 15 65)"/>
+                <ellipse cx="85" cy="70" rx="6" ry="2.5" fill="#4a6a4a" opacity="0.6" transform="rotate(45 85 70)"/>
+            `;
+            return `<svg class="flower-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <radialGradient id="glow_${id}">
+                        <stop offset="0%" stop-color="${c.light}" stop-opacity="0.6"/>
+                        <stop offset="60%" stop-color="${c.main}" stop-opacity="0.2"/>
+                        <stop offset="100%" stop-color="${c.main}" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <circle cx="50" cy="55" r="42" fill="url(#glow_${id})"/>
+                ${leaves}
+                ${flowers}
+            </svg>`;
+        }
+
+        // 蝴蝶SVG
+        const butterflySVG = `<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="wingGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#FFB6C1;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#FF69B4;stop-opacity:0.9" />
+                    <stop offset="100%" style="stop-color:#C71585;stop-opacity:0.8" />
+                </linearGradient>
+                <linearGradient id="wingGradient2" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#E6E6FA;stop-opacity:1" />
+                    <stop offset="50%" style="stop-color:#DDA0DD;stop-opacity:0.9" />
+                    <stop offset="100%" style="stop-color:#9370DB;stop-opacity:0.8" />
+                </linearGradient>
+            </defs>
+            <ellipse cx="30" cy="45" rx="22" ry="18" fill="url(#wingGradient1)" transform="rotate(-15 30 45)"/>
+            <ellipse cx="35" cy="65" rx="16" ry="14" fill="url(#wingGradient2)" transform="rotate(-10 35 65)"/>
+            <ellipse cx="70" cy="45" rx="22" ry="18" fill="url(#wingGradient1)" transform="rotate(15 70 45)"/>
+            <ellipse cx="65" cy="65" rx="16" ry="14" fill="url(#wingGradient2)" transform="rotate(10 65 65)"/>
+            <ellipse cx="50" cy="52" rx="4" ry="18" fill="#4a3728"/>
+            <path d="M48 35 Q42 25 45 18" stroke="#4a3728" stroke-width="2" fill="none"/>
+            <path d="M52 35 Q58 25 55 18" stroke="#4a3728" stroke-width="2" fill="none"/>
+            <circle cx="45" cy="16" r="3" fill="#4a3728"/>
+            <circle cx="55" cy="16" r="3" fill="#4a3728"/>
+            <circle cx="25" cy="42" r="4" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="75" cy="42" r="4" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="38" cy="62" r="3" fill="rgba(255,255,255,0.3)"/>
+            <circle cx="62" cy="62" r="3" fill="rgba(255,255,255,0.3)"/>
+        </svg>`;
+
+        // 初始化时拉取卡片
+        async function fetchCards() {
+            try {
+                const resp = await fetch(`${API_BASE_URL}/api/cards`);
+                const data = await resp.json();
+                if (!resp.ok || data.error) {
+                    throw new Error(data.error || `请求失败：${resp.status}`);
+                }
+                allCards = data.categories || {};
+                updateProfileButton(data.global_profile_available);
+                renderGrid();
+            } catch (err) {
+                console.error('拉取卡片失败：', err);
+                addChatMessage('无法连接到后端服务，请确认后端已启动（uvicorn 8000）。', 'bot');
+            }
+        }
+
+        function updateProfileButton(available) {
+            const btn = document.getElementById('generateProfileBtn');
+            btn.disabled = !available;
+            if (!available) {
+                btn.textContent = '卡片不足';
+            } else {
+                btn.textContent = globalProfileLines.length ? '重新生成' : '生成画像';
+            }
+        }
+
+        // 渲染花海
+        function renderGrid() {
+            const grid = document.getElementById('flowerGrid');
+            grid.innerHTML = '';
+
+            categoryKeys.forEach((key, index) => {
+                const cat = flowerCategories[key];
+                const catCards = allCards[key] || [];
+                const count = catCards.length;
+                const cluster = document.createElement('div');
+                cluster.className = 'grid-cell';
+                cluster.innerHTML = `
+                    <div class="flower-cluster ${key}" id="node_${key}" onclick="openSectionModal('${key}')">
+                        <div class="month-tag">${monthLabels[index]}</div>
+                        ${count > 0 ? `<div class="memory-count">${count}</div>` : ''}
+                        <div class="glass-dome">
+                            <div class="butterfly">${butterflySVG}</div>
+                            <div class="cluster-image">${renderFlowerSVG(key)}</div>
+                        </div>
+                        <div class="cluster-labels">
+                            <div class="cluster-category">${cat.category}</div>
+                            <div class="cluster-name">${cat.name}</div>
+                            <div class="cluster-desc">${cat.meaning}</div>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(cluster);
+            });
+        }
+
+        // 打开分类详情
+        function openSectionModal(key) {
+            const cat = flowerCategories[key];
+            const catCards = allCards[key] || [];
+
+            document.getElementById('detailFlowerImg').innerHTML = renderFlowerSVG(key);
+            document.getElementById('detailCategoryName').textContent = `${cat.name} · ${cat.category}`;
+            document.getElementById('detailMeaning').textContent = cat.meaning;
+
+            const list = document.getElementById('detailCardList');
+            if (catCards.length === 0) {
+                list.innerHTML = '<p style="color:var(--text-muted);padding:20px;">这片花丛还没有认知之花，先在左侧种下一朵吧</p>';
+            } else {
+                list.innerHTML = catCards.map(card => `
+                    <div class="card-item" id="card_${card.id}">
+                        <div class="card-flower-icon">${renderFlowerSVG(key)}</div>
+                        <div>
+                            <p>${card.card_text}</p>
+                            <div class="card-meta">更新于 ${card.updated_at || card.created_at}</div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('sectionModal').classList.add('visible');
+        }
+
+        function closeSectionModal() {
+            document.getElementById('sectionModal').classList.remove('visible');
+        }
+
+        // 移动端标签切换
+        function switchTab(tab) {
+            document.querySelectorAll('.mobile-tabs .tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.mobile-tabs .tab[data-tab="${tab}"]`).classList.add('active');
+
+            document.querySelectorAll('.glass-panel, .garden-area').forEach(p => p.classList.remove('active'));
+            if (tab === 'garden') {
+                document.getElementById('gardenArea').classList.add('active');
+            } else {
+                document.getElementById(`${tab}Panel`).classList.add('active');
+            }
+        }
+
+        // 拖拽上传
+        const uploadZone = document.getElementById('uploadZone');
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.classList.add('dragover');
+        });
+        uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                document.getElementById('fileInput').files = files;
+                handleFileSelect({ target: { files } });
+            }
+        });
+
+        // 文件选择
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            selectedFile = file;
+            document.getElementById('fileInfo').textContent = `已选择：${file.name}`;
+            document.getElementById('fileInfo').classList.add('visible');
+        }
+
+        // 开始种花：上传到后端 /api/upload-content
+        async function startPlanting() {
+            const inputText = document.getElementById('inputText').value.trim();
+
+            if (!inputText && !selectedFile) {
+                alert('请先输入文字或上传文件');
+                return;
+            }
+
+            const plantBtn = document.getElementById('plantBtn');
+            plantBtn.disabled = true;
+
+            openParseModalLoading(selectedFile ? selectedFile.name : '文本输入');
+
+            try {
+                const formData = new FormData();
+                if (selectedFile) {
+                    formData.append('file', selectedFile);
+                } else {
+                    formData.append('text', inputText);
+                }
+
+                const response = await fetch(`${API_BASE_URL}/api/upload-content`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || data.error) {
+                    throw new Error(data.error || `请求失败：${response.status}`);
+                }
+
+                if (!data.suggestions || data.suggestions.length === 0) {
+                    document.getElementById('loadingState').style.display = 'none';
+                    document.getElementById('parseResultContent').style.display = 'block';
+                    document.getElementById('resultList').innerHTML = `
+                        <p style="color:var(--text-soft);text-align:center;padding:20px;">
+                            AI 认为这段内容暂不涉及任何新的认知维度，无需新增或更新卡片。
+                        </p>
+                    `;
+                    document.getElementById('confirmAllBtn').style.display = 'none';
+                    return;
+                }
+
+                showParseSuggestions(data.suggestions);
+            } catch (err) {
+                document.getElementById('loadingState').style.display = 'none';
+                document.getElementById('parseResultContent').style.display = 'none';
+                document.getElementById('parseErrorState').style.display = 'block';
+                document.getElementById('parseErrorMessage').textContent = err.message;
+            } finally {
+                plantBtn.disabled = false;
+            }
+        }
+
+        // 解析弹窗：加载中
+        function openParseModalLoading(sourceName) {
+            document.getElementById('parseModal').classList.add('visible');
+            document.getElementById('parseResultContent').style.display = 'none';
+            document.getElementById('loadingState').style.display = 'block';
+            document.getElementById('parseErrorState').style.display = 'none';
+            document.getElementById('extractStatus').textContent = sourceName ? `来源：${sourceName}，正在后端提取并解析...` : '正在后端解析...';
+            document.getElementById('confirmAllBtn').style.display = 'inline-block';
+        }
+
+        // 显示 AI 建议
+        function showParseSuggestions(suggestions) {
+            document.getElementById('loadingState').style.display = 'none';
+            document.getElementById('parseResultContent').style.display = 'block';
+
+            uploadSuggestions = suggestions.map((sug, index) => ({
+                ...sug,
+                localIndex: index,
+                status: 'pending', // pending / accepted / rejected
+                editedText: sug.proposed_text
+            }));
+
+            renderSuggestions();
+        }
+
+        function closeParseModal() {
+            document.getElementById('parseModal').classList.remove('visible');
+            document.getElementById('inputText').value = '';
+            document.getElementById('fileInfo').classList.remove('visible');
+            document.getElementById('fileInfo').textContent = '';
+            document.getElementById('fileInput').value = '';
+            selectedFile = null;
+            uploadSuggestions = [];
+        }
+
+        function renderSuggestions() {
+            const resultList = document.getElementById('resultList');
+            resultList.innerHTML = uploadSuggestions.map((sug, index) => {
+                const cat = flowerCategories[sug.category];
+                const typeLabel = sug.type === 'update' ? '认知更新' : '新发现';
+                const typeClass = sug.type === 'update' ? 'update' : 'new';
+                const statusText = {
+                    pending: '待确认',
+                    accepted: '已接受',
+                    rejected: '已拒绝'
+                }[sug.status];
+
+                return `
+                    <div class="suggestion-card ${typeClass}" data-index="${index}">
+                        <div class="suggestion-type">${typeLabel} · ${cat.name}（${cat.category}）</div>
+                        ${sug.type === 'update' ? `
+                            <div class="old-text">原来：${sug.old_text}</div>
+                            <div class="arrow">↓ 演变为</div>
+                        ` : '<div class="arrow">新长出</div>'}
+                        <textarea class="new-text" id="sug_text_${index}" ${sug.status !== 'pending' ? 'disabled' : ''}>${sug.editedText}</textarea>
+                        <div class="reason">${sug.reason}</div>
+                        <div class="suggestion-actions">
+                            <span class="status">${statusText}</span>
+                            ${sug.status === 'pending' ? `
+                                <button class="reject-btn" onclick="setSuggestionStatus(${index}, 'rejected')">拒绝</button>
+                                <button class="accept-btn" onclick="setSuggestionStatus(${index}, 'accepted')">接受</button>
+                            ` : `
+                                <button class="reject-btn" onclick="setSuggestionStatus(${index}, 'pending')">撤销</button>
+                            `}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function setSuggestionStatus(index, status) {
+            const sug = uploadSuggestions[index];
+            if (status === 'accepted') {
+                const edited = document.getElementById(`sug_text_${index}`).value.trim();
+                sug.editedText = edited || sug.proposed_text;
+            }
+            sug.status = status;
+            renderSuggestions();
+        }
+
+        // 确认所选建议，正式写入后端
+        async function confirmAllSuggestions() {
+            const accepted = uploadSuggestions.filter(s => s.status === 'accepted');
+            if (accepted.length === 0) {
+                alert('你还没有接受任何建议');
+                return;
+            }
+
+            const decisions = accepted.map(sug => ({
+                type: sug.type,
+                category: sug.category,
+                card_id: sug.card_id,
+                new_text: sug.editedText,
+                source_ids: sug.source_ids,
+                accepted: true
+            }));
+
+            const confirmBtn = document.getElementById('confirmAllBtn');
+            confirmBtn.disabled = true;
+
+            try {
+                const resp = await fetch(`${API_BASE_URL}/api/confirm-cards`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ decisions })
+                });
+                const data = await resp.json();
+                if (!resp.ok || data.error) {
+                    throw new Error(data.error || `请求失败：${resp.status}`);
+                }
+
+                // 重新拉取卡片并触发绽放动效
+                const changedCategories = data.updated_categories || [];
+                await fetchCards();
+                triggerBloomEffects(changedCategories, data.created || [], data.updated || []);
+
+                closeParseModal();
+                updateProfileButtonAfterChange();
+
+                addChatMessage(`已为你${data.created.length > 0 ? '新长出 ' + data.created.length + ' 朵' : ''}${data.updated.length > 0 ? '更新 ' + data.updated.length + ' 朵' : ''}认知之花。`, 'bot');
+            } catch (err) {
+                alert('确认失败：' + err.message);
+            } finally {
+                confirmBtn.disabled = false;
+            }
+        }
+
+        function triggerBloomEffects(categories, created, updated) {
+            categories.forEach(cat => {
+                const node = document.getElementById(`node_${cat}`);
+                if (!node) return;
+                const hasNew = created.some(c => c.category === cat);
+                const hasUpdate = updated.some(c => c.category === cat);
+                node.classList.remove('bloom-new', 'bloom-update');
+                // 强制重绘以重新触发动画
+                void node.offsetWidth;
+                if (hasNew) {
+                    node.classList.add('bloom-new');
+                } else if (hasUpdate) {
+                    node.classList.add('bloom-update');
+                }
+                node.classList.add('glow', 'has-butterfly');
+
+                // 动画结束后移除 bloom 类，保留 glow/butterfly
+                setTimeout(() => {
+                    node.classList.remove('bloom-new', 'bloom-update');
+                }, 2000);
+            });
+        }
+
+        function updateProfileButtonAfterChange() {
+            const validCategories = categoryKeys.filter(k => (allCards[k] || []).length >= 2);
+            updateProfileButton(validCategories.length >= 3);
+            if (globalProfileLines.length > 0) {
+                // 卡片已变化，清除本地缓存的全局画像
+                globalProfileLines = [];
+                document.getElementById('profileContent').innerHTML = '<p class="profile-empty">卡片已更新，可重新生成全局画像。</p>';
+                document.getElementById('generateProfileBtn').textContent = '生成画像';
+            }
+        }
+
+        // 全局画像
+        async function generateGlobalProfile() {
+            const btn = document.getElementById('generateProfileBtn');
+            btn.disabled = true;
+            btn.textContent = '生成中...';
+            try {
+                const resp = await fetch(`${API_BASE_URL}/api/global-profile`, { method: 'POST' });
+                const data = await resp.json();
+                if (!resp.ok || data.error) {
+                    throw new Error(data.error || `请求失败：${resp.status}`);
+                }
+                globalProfileLines = data.lines || [];
+                renderGlobalProfile();
+                btn.textContent = '重新生成';
+            } catch (err) {
+                addChatMessage('生成全局画像失败：' + err.message, 'bot');
+                btn.textContent = '生成画像';
+            } finally {
+                btn.disabled = false;
+            }
+        }
+
+        function renderGlobalProfile() {
+            const container = document.getElementById('profileContent');
+            if (globalProfileLines.length === 0) {
+                container.innerHTML = '<p class="profile-empty">暂无画像，点击上方按钮生成。</p>';
+                return;
+            }
+            container.innerHTML = globalProfileLines.map(line => {
+                const badges = (line.card_ids || []).map(cardId => {
+                    const catKey = findCardCategory(cardId);
+                    if (!catKey) return '';
+                    const cat = flowerCategories[catKey];
+                    return `<span class="flower-badge">${cat.name}</span>`;
+                }).join('');
+                return `
+                    <div class="profile-line" id="profile_line_${line.id}" onclick="highlightProfileLine('${line.id}')">
+                        <div class="line-text">${line.text}</div>
+                        <div class="line-meta">
+                            <div class="line-badges">${badges || '<span>无直接依据</span>'}</div>
+                            ${line.card_ids && line.card_ids.length ? `<button class="reject-btn" onclick="event.stopPropagation();rejectProfileLine('${line.id}')">反对</button>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function findCardCategory(cardId) {
+            for (const key of categoryKeys) {
+                const cards = allCards[key] || [];
+                if (cards.some(c => c.id === cardId)) return key;
+            }
+            return null;
+        }
+
+        function highlightProfileLine(lineId) {
+            const line = globalProfileLines.find(l => l.id === lineId);
+            if (!line) return;
+            const cardIds = line.card_ids || [];
+            const categories = new Set();
+            cardIds.forEach(id => {
+                const cat = findCardCategory(id);
+                if (cat) categories.add(cat);
+            });
+            highlightNodes(Array.from(categories));
+
+            // 若分类详情弹窗正打开，滚动到对应卡片
+            const openSection = document.querySelector('.modal-overlay.visible .section-detail');
+            if (openSection) {
+                cardIds.forEach(id => {
+                    const el = document.getElementById(`card_${id}`);
+                    if (el) {
+                        el.style.background = 'rgba(124, 92, 191, 0.25)';
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        setTimeout(() => {
+                            el.style.background = '';
+                        }, 2500);
+                    }
+                });
+            }
+        }
+
+        async function rejectProfileLine(lineId) {
+            try {
+                const resp = await fetch(`${API_BASE_URL}/api/reject-profile-line`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ line_id: lineId })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    const lineEl = document.getElementById(`profile_line_${lineId}`);
+                    if (lineEl) {
+                        lineEl.style.opacity = '0.5';
+                        lineEl.querySelector('.reject-btn').textContent = `已反对 (${data.rejections})`;
+                    }
+                }
+            } catch (err) {
+                console.error('反对失败：', err);
+            }
+        }
+
+        // 聊天功能（简化版，基于关键词匹配）
+        function sendQuickQuestion(question) {
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+
+        async function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const question = input.value.trim();
+            if (!question) return;
+
+            addChatMessage(question, 'user');
+            input.value = '';
+
+            try {
+                const resp = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question })
+                });
+                const data = await resp.json();
+                if (data.error) {
+                    addChatMessage('抱歉，回答生成失败：' + data.error, 'bot');
+                    return;
+                }
+                addChatMessage(data.answer, 'bot');
+                if (data.categories && data.categories.length > 0) {
+                    highlightNodes(data.categories);
+                }
+            } catch (e) {
+                addChatMessage('网络错误，请稍后再试。', 'bot');
+            }
+        }
+
+        function addChatMessage(text, type) {
+            const messages = document.getElementById('chatMessages');
+            const messageEl = document.createElement('div');
+            messageEl.className = `chat-message ${type}`;
+            messageEl.innerHTML = `<div class="message-content">${text}</div>`;
+            messages.appendChild(messageEl);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function highlightNodes(categories) {
+            categories.forEach(cat => {
+                const node = document.getElementById(`node_${cat}`);
+                if (node) {
+                    node.classList.add('glow', 'has-butterfly');
+                }
+            });
+        }
+
+        async function checkDemoStatus() {
+            try {
+                const resp = await fetch('/api/demo/status');
+                const data = await resp.json();
+                if (data.is_demo_mode) {
+                    document.getElementById('demoBadge').style.display = 'flex';
+                    document.getElementById('demoEntryBtn').classList.add('hidden');
+                } else {
+                    document.getElementById('demoBadge').style.display = 'none';
+                    document.getElementById('demoEntryBtn').classList.remove('hidden');
+                }
+            } catch (e) {
+                console.log('Demo status check failed');
+            }
+        }
+
+        async function openDemoModal() {
+            try {
+                const resp = await fetch('/api/demo/users');
+                const data = await resp.json();
+                
+                const modalContent = document.createElement('div');
+                modalContent.className = 'modal';
+                modalContent.innerHTML = `
+                    <div class="modal-header">
+                        <h3>🌸 选择演示用户</h3>
+                        <button class="close-btn" onclick="closeDemoModal()">×</button>
+                    </div>
+                    <div class="modal-body" style="max-height: 500px; overflow-y: auto;">
+                        <div style="margin-bottom: 16px; font-size: 0.85rem; color: var(--text-soft);">
+                            选择一个演示用户，系统将加载预设的认知卡片数据：
+                        </div>
+                        ${data.users.map(u => `
+                            <div class="demo-user-card" onclick="enterDemoMode('${u.id}')">
+                                <div class="user-name">${u.name}</div>
+                                <div class="user-desc">${u.description}</div>
+                                <div class="user-tags">
+                                    ${u.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                                </div>
+                                <div class="card-count">约 ${u.card_count} 张认知卡片</div>
+                            </div>
+                        `).join('')}
+                        <div style="margin-top: 16px; padding-top: 12px; border-top: 1px dashed rgba(200,180,235,0.2);">
+                            <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">或创建空白演示环境：</div>
+                            <button class="plant-btn" onclick="enterDemoMode(null)" style="width: 100%;">创建空白演示</button>
+                        </div>
+                    </div>
+                `;
+                
+                const modal = document.createElement('div');
+                modal.id = 'demoModal';
+                modal.className = 'modal-overlay visible';
+                modal.appendChild(modalContent);
+                document.body.appendChild(modal);
+                
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) closeDemoModal();
+                });
+            } catch (e) {
+                alert('加载演示用户失败：' + e.message);
+            }
+        }
+
+        function closeDemoModal() {
+            const modal = document.getElementById('demoModal');
+            if (modal) modal.remove();
+        }
+
+        async function enterDemoMode(userId) {
+            closeDemoModal();
+            
+            const btn = document.getElementById('demoEntryBtn');
+            btn.disabled = true;
+            btn.textContent = '加载中...';
+            
+            try {
+                const resp = await fetch('/api/demo/enter' + (userId ? `?user_id=${userId}` : ''), {
+                        method: 'POST'
+                    });
+                const data = await resp.json();
+                
+                if (!data.success) {
+                    alert(data.error || '进入演示模式失败');
+                    btn.disabled = false;
+                    btn.textContent = '进入演示模式';
+                    return;
+                }
+                
+                document.getElementById('demoBadge').style.display = 'flex';
+                document.getElementById('demoEntryBtn').classList.add('hidden');
+                
+                await fetchCards();
+                await fetchGlobalProfile();
+                
+                if (data.user && data.user.name) {
+                    document.querySelector('.main-title').textContent = `你好，${data.user.name}！`;
+                }
+                
+                alert(`成功进入演示模式！\n已加载 ${data.cards_count} 张认知卡片\n${data.user ? `当前用户：${data.user.name}` : '空白演示环境'}`);
+                
+                setTimeout(() => {
+                    const plantPanel = document.getElementById('plantPanel');
+                    if (plantPanel) {
+                        const demoHint = document.createElement('div');
+                        demoHint.style.cssText = 'margin-top: 12px; padding: 10px; background: rgba(124,92,191,0.15); border-radius: 10px; font-size: 0.75rem; color: var(--text-gold); text-align: center;';
+                        demoHint.innerHTML = '<span>🌸</span> 演示模式下，点击下方按钮可快速填充示例文本';
+                        plantPanel.querySelector('.plant-area').appendChild(demoHint);
+                        loadDemoSampleTexts();
+                    }
+                }, 500);
+                
+            } catch (e) {
+                alert('进入演示模式失败：' + e.message);
+                btn.disabled = false;
+                btn.textContent = '进入演示模式';
+            }
+        }
+
+        async function exitDemoMode() {
+            if (!confirm('确定要退出演示模式吗？\n退出后将恢复原始数据。')) return;
+            
+            try {
+                const resp = await fetch('/api/demo/exit', { method: 'POST' });
+                const data = await resp.json();
+                
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+                
+                document.getElementById('demoBadge').style.display = 'none';
+                document.getElementById('demoEntryBtn').classList.remove('hidden');
+                document.querySelector('.main-title').textContent = '种下你的碎片，开出你的画像。';
+                
+                await fetchCards();
+                await fetchGlobalProfile();
+                
+                const plantPanel = document.getElementById('plantPanel');
+                const demoHints = plantPanel.querySelectorAll('[style*="rgba(124,92,191,0.15)"]');
+                demoHints.forEach(h => h.remove());
+                
+                alert('已退出演示模式，数据已恢复。');
+            } catch (e) {
+                alert('退出演示模式失败：' + e.message);
+            }
+        }
+
+        async function loadDemoSampleTexts() {
+            try {
+                const resp = await fetch('/api/demo/sample-texts');
+                const data = await resp.json();
+                
+                const plantPanel = document.getElementById('plantPanel');
+                const plantArea = plantPanel.querySelector('.plant-area');
+                
+                const textsContainer = document.createElement('div');
+                textsContainer.style.cssText = 'margin-top: 12px;';
+                textsContainer.innerHTML = `<div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">示例文本（点击填充）：</div>`;
+                
+                data.texts.slice(0, 6).forEach(text => {
+                    const item = document.createElement('div');
+                    item.className = 'demo-sample-text-item';
+                    const title = text.filename.replace(/^\d+_/, '').replace('.txt', '');
+                    item.innerHTML = `
+                        <div class="text-title">${title}</div>
+                        <div class="text-preview">${text.content.substring(0, 60)}...</div>
+                    `;
+                    item.onclick = () => {
+                        document.getElementById('inputText').value = text.content;
+                    };
+                    textsContainer.appendChild(item);
+                });
+                
+                plantArea.appendChild(textsContainer);
+                loadDemoQuickQuestions();
+            } catch (e) {
+                console.log('Load sample texts failed:', e);
+            }
+        }
+
+        async function loadDemoQuickQuestions() {
+            try {
+                const resp = await fetch('/api/demo/questions');
+                const data = await resp.json();
+                
+                const chatPanel = document.getElementById('chatPanel');
+                const chatArea = chatPanel.querySelector('.chat-area');
+                
+                const questionsContainer = document.createElement('div');
+                questionsContainer.className = 'demo-quick-questions';
+                questionsContainer.innerHTML = `<div style="width: 100%; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px;">快速提问：</div>`;
+                
+                data.questions.slice(0, 10).forEach(q => {
+                    const btn = document.createElement('button');
+                    btn.className = 'demo-quick-question-btn';
+                    btn.textContent = q;
+                    btn.onclick = () => {
+                        document.getElementById('chatInput').value = q;
+                        sendMessage();
+                    };
+                    questionsContainer.appendChild(btn);
+                });
+                
+                chatArea.insertBefore(questionsContainer, chatArea.firstChild);
+            } catch (e) {
+                console.log('Load quick questions failed:', e);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initApiUrl();
+            await checkDemoStatus();
+            fetchCards();
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeParseModal();
+                    closeSectionModal();
+                    closeDemoModal();
+                }
+            });
+
+            document.getElementById('chatInput').addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        });
+    </script>
+</body>
+</html>

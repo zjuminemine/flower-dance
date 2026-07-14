@@ -1,0 +1,20 @@
+INFO:     Started server process [8354]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:64247 - "GET /api/health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64248 - "GET /api/demo/status HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64249 - "GET /api/cards HTTP/1.1" 200 OK
+ERROR:main:Upload content processing failed
+Traceback (most recent call last):
+  File "/Users/stephenwong/Projects/flower dance/backend/main.py", line 414, in upload_content
+    user_prompt=build_card_suggestions_prompt(
+  File "/Users/stephenwong/Projects/flower dance/backend/prompts.py", line 209, in build_card_suggestions_prompt
+    source_texts.append(up["raw_text"])
+KeyError: 'raw_text'
+INFO:     127.0.0.1:64472 - "POST /api/upload-content HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65129 - "GET /api/demo/users HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65129 - "POST /api/demo/enter?user_id=demo_user_b HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65142 - "GET /api/cards HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65370 - "POST /api/upload-content HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49506 - "POST /api/upload-content HTTP/1.1" 200 OK

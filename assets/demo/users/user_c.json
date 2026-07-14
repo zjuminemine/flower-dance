@@ -1,0 +1,180 @@
+{
+    "user_info": {
+        "id": "demo_user_c",
+        "name": "王艺涵",
+        "age": 30,
+        "description": "自由创作者",
+        "tags": ["情绪丰富", "阅读很多", "旅行频繁"],
+        "card_count": 60
+    },
+    "uploads": [
+        {
+            "id": "demo_c_upload_001",
+            "source_type": "text",
+            "raw_text": "今天完成了一幅插画，是关于春天的主题。画了整整一天，虽然很累，但看到成品的时候感觉一切都值了。艺术创作真的能让人忘记时间。",
+            "created_at": "2024-02-10T18:00:00"
+        },
+        {
+            "id": "demo_c_upload_002",
+            "source_type": "text",
+            "raw_text": "周末去书店淘了很多书，有小说、散文、艺术理论。每次走进书店就感觉特别安心，好像时间都慢下来了。打算这个月读完《百年孤独》。",
+            "created_at": "2024-02-15T15:00:00"
+        },
+        {
+            "id": "demo_c_upload_003",
+            "source_type": "text",
+            "raw_text": "最近情绪有点低落，不知道为什么。可能是天气不好的原因，连续一周都是阴天。想出去走走，但又不知道去哪里。",
+            "created_at": "2024-02-20T22:00:00"
+        },
+        {
+            "id": "demo_c_upload_004",
+            "source_type": "text",
+            "raw_text": "一个人去了云南旅行，在大理住了一周。每天早上起来画画，下午去洱海散步，晚上和客栈的人聊天。这种慢生活真的很治愈。",
+            "created_at": "2024-03-05T10:00:00"
+        },
+        {
+            "id": "demo_c_upload_005",
+            "source_type": "text",
+            "raw_text": "接了一个商业插画的单子，报酬不错。客户要求很多，改了好几版才满意。虽然过程有点辛苦，但拿到尾款的时候很开心。",
+            "created_at": "2024-03-15T17:00:00"
+        },
+        {
+            "id": "demo_c_upload_006",
+            "source_type": "text",
+            "raw_text": "今天读了三毛的《撒哈拉的故事》，被她的文字深深打动。那种自由洒脱的生活态度让我向往。以后也要去一次撒哈拉。",
+            "created_at": "2024-03-20T21:00:00"
+        },
+        {
+            "id": "demo_c_upload_007",
+            "source_type": "text",
+            "raw_text": "和几个朋友一起去露营，晚上坐在篝火旁聊天看星星。好久没有这样放松过了，感觉和大自然融为一体。",
+            "created_at": "2024-03-25T20:00:00"
+        },
+        {
+            "id": "demo_c_upload_008",
+            "source_type": "text",
+            "raw_text": "最近在学习水彩画，买了一套新的颜料。虽然刚开始画得不太好，但每一次练习都能感觉到进步。艺术是一生的修行。",
+            "created_at": "2024-04-01T14:00:00"
+        },
+        {
+            "id": "demo_c_upload_009",
+            "source_type": "text",
+            "raw_text": "今天心情特别好，阳光明媚，画了一幅很满意的画。感觉自己的状态回来了，灵感源源不断。",
+            "created_at": "2024-04-05T16:00:00"
+        },
+        {
+            "id": "demo_c_upload_010",
+            "source_type": "text",
+            "raw_text": "去了一趟江南水乡，苏州的园林太美了。走在小桥流水之间，感觉自己穿越回了古代。拍了很多照片，打算画成系列插画。",
+            "created_at": "2024-04-15T09:00:00"
+        },
+        {
+            "id": "demo_c_upload_011",
+            "source_type": "text",
+            "raw_text": "最近接不到单子，有点焦虑。自由职业就是这样，收入不稳定。但又不想去公司上班，喜欢自由的生活。只能继续坚持了。",
+            "created_at": "2024-04-20T23:00:00"
+        },
+        {
+            "id": "demo_c_upload_012",
+            "source_type": "text",
+            "raw_text": "读了《月亮与六便士》，主人公为了追求艺术放弃一切的故事让我感动。虽然我做不到那样极端，但也要坚持自己的梦想。",
+            "created_at": "2024-04-25T20:00:00"
+        },
+        {
+            "id": "demo_c_upload_013",
+            "source_type": "text",
+            "raw_text": "参加了一个艺术展览，看到很多优秀的作品。和几个艺术家聊了聊，学到了很多。艺术圈其实很小，大家都很友好。",
+            "created_at": "2024-05-01T17:00:00"
+        },
+        {
+            "id": "demo_c_upload_014",
+            "source_type": "text",
+            "raw_text": "今天画画的时候突然来了灵感，一口气画了三幅。那种感觉太棒了，好像灵魂都在燃烧。艺术真的是最好的表达。",
+            "created_at": "2024-05-05T15:00:00"
+        },
+        {
+            "id": "demo_c_upload_015",
+            "source_type": "text",
+            "raw_text": "和家人视频聊天，妈妈说很想我。已经半年没回家了，有点想家。但工作太忙，抽不出时间。等忙完这段时间一定要回去看看。",
+            "created_at": "2024-05-10T20:00:00"
+        },
+        {
+            "id": "demo_c_upload_016",
+            "source_type": "text",
+            "raw_text": "去了西藏旅行，站在布达拉宫前，感觉自己很渺小。高原反应虽然难受，但看到那些虔诚的信徒，心灵受到了震撼。",
+            "created_at": "2024-05-20T08:00:00"
+        },
+        {
+            "id": "demo_c_upload_017",
+            "source_type": "text",
+            "raw_text": "最近开始写日记，记录每天的心情和想法。有时候写着写着就哭了，有时候又会笑。文字真的能治愈人心。",
+            "created_at": "2024-05-25T22:00:00"
+        },
+        {
+            "id": "demo_c_upload_018",
+            "source_type": "text",
+            "raw_text": "接到了一个绘本的合作邀请，这是我一直想做的事。虽然稿费不高，但能参与创作一本绘本是我的梦想。一定要做好！",
+            "created_at": "2024-06-01T10:00:00"
+        },
+        {
+            "id": "demo_c_upload_019",
+            "source_type": "text",
+            "raw_text": "周末去参加了一个读书会，和大家一起讨论《活着》。福贵的故事让很多人流泪，但也让我们珍惜现在的生活。",
+            "created_at": "2024-06-10T14:00:00"
+        },
+        {
+            "id": "demo_c_upload_020",
+            "source_type": "text",
+            "raw_text": "今天收到了绘本的样书，看到自己画的画印在书上，感觉特别激动。这是我的第一本书，以后还要创作更多。",
+            "created_at": "2024-06-20T16:00:00"
+        }
+    ],
+    "cards": {
+        "plum": [
+            {"id": "demo_c_plum_001", "card_text": "你情绪丰富敏感，会随天气和环境变化", "facts": ["情绪低落", "天气不好", "心情特别好"], "source_ids": ["demo_c_upload_003", "demo_c_upload_009"], "created_at": "2024-02-20T22:00:00", "updated_at": "2024-04-05T16:00:00"},
+            {"id": "demo_c_plum_002", "card_text": "你坚持艺术梦想，面对收入不稳定仍不放弃", "facts": ["接不到单子焦虑", "不想去公司上班", "坚持梦想"], "source_ids": ["demo_c_upload_011", "demo_c_upload_012"], "created_at": "2024-04-20T23:00:00", "updated_at": "2024-04-25T20:00:00"}
+        ],
+        "apricot": [
+            {"id": "demo_c_apricot_001", "card_text": "你持续学习艺术，从插画到水彩画不断进步", "facts": ["画插画", "学习水彩画", "买新颜料"], "source_ids": ["demo_c_upload_001", "demo_c_upload_008"], "created_at": "2024-02-10T18:00:00", "updated_at": "2024-04-01T14:00:00"},
+            {"id": "demo_c_apricot_002", "card_text": "你通过阅读丰富内心世界，每月读多本书", "facts": ["淘了很多书", "读《百年孤独》", "读《撒哈拉的故事》"], "source_ids": ["demo_c_upload_002", "demo_c_upload_006"], "created_at": "2024-02-15T15:00:00", "updated_at": "2024-03-20T21:00:00"}
+        ],
+        "peach": [
+            {"id": "demo_c_peach_001", "card_text": "你目前单身，专注于艺术创作和旅行", "facts": ["一个人旅行", "专注画画"], "source_ids": ["demo_c_upload_004"], "created_at": "2024-03-05T10:00:00", "updated_at": "2024-03-05T10:00:00"}
+        ],
+        "peony": [
+            {"id": "demo_c_peony_001", "card_text": "你作为自由插画师完成商业单子并出版绘本", "facts": ["接商业插画单子", "创作绘本"], "source_ids": ["demo_c_upload_005", "demo_c_upload_018", "demo_c_upload_020"], "created_at": "2024-03-15T17:00:00", "updated_at": "2024-06-20T16:00:00"},
+            {"id": "demo_c_peony_002", "card_text": "你艺术创作能力强，灵感来临时能快速产出", "facts": ["画了三幅", "灵感源源不断"], "source_ids": ["demo_c_upload_014"], "created_at": "2024-05-05T15:00:00", "updated_at": "2024-05-05T15:00:00"}
+        ],
+        "pomegranate": [
+            {"id": "demo_c_pomegranate_001", "card_text": "你和家人关系亲密，半年没回家有点想家", "facts": ["和家人视频", "妈妈说很想我", "半年没回家"], "source_ids": ["demo_c_upload_015"], "created_at": "2024-05-10T20:00:00", "updated_at": "2024-05-10T20:00:00"}
+        ],
+        "lotus": [
+            {"id": "demo_c_lotus_001", "card_text": "你通过旅行和自然疗愈身心，频繁外出", "facts": ["去云南旅行", "江南水乡", "西藏旅行"], "source_ids": ["demo_c_upload_004", "demo_c_upload_010", "demo_c_upload_016"], "created_at": "2024-03-05T10:00:00", "updated_at": "2024-05-20T08:00:00"},
+            {"id": "demo_c_lotus_002", "card_text": "你通过日记和阅读调节情绪，文字治愈人心", "facts": ["开始写日记", "文字治愈人心"], "source_ids": ["demo_c_upload_017"], "created_at": "2024-05-25T22:00:00", "updated_at": "2024-05-25T22:00:00"}
+        ],
+        "orchid": [
+            {"id": "demo_c_orchid_001", "card_text": "你通过露营和读书会拓展社交，与朋友关系良好", "facts": ["和朋友露营", "参加读书会"], "source_ids": ["demo_c_upload_007", "demo_c_upload_019"], "created_at": "2024-03-25T20:00:00", "updated_at": "2024-06-10T14:00:00"},
+            {"id": "demo_c_orchid_002", "card_text": "你积极参与艺术圈交流，和艺术家学习", "facts": ["参加艺术展览", "和艺术家聊天"], "source_ids": ["demo_c_upload_013"], "created_at": "2024-05-01T17:00:00", "updated_at": "2024-05-01T17:00:00"}
+        ],
+        "osmanthus": [
+            {"id": "demo_c_osmanthus_001", "card_text": "你作为自由创作者收入不稳定但坚持梦想", "facts": ["接不到单子焦虑", "接商业插画", "绘本合作"], "source_ids": ["demo_c_upload_011", "demo_c_upload_005", "demo_c_upload_018"], "created_at": "2024-03-15T17:00:00", "updated_at": "2024-06-01T10:00:00"},
+            {"id": "demo_c_osmanthus_002", "card_text": "你成功出版第一本绘本，实现创作梦想", "facts": ["收到绘本样书", "第一本书"], "source_ids": ["demo_c_upload_020"], "created_at": "2024-06-20T16:00:00", "updated_at": "2024-06-20T16:00:00"}
+        ],
+        "chrysanthemum": [
+            {"id": "demo_c_chrysanthemum_001", "card_text": "你爱好广泛，包括阅读、旅行、艺术创作", "facts": ["淘书", "去云南旅行", "画插画"], "source_ids": ["demo_c_upload_002", "demo_c_upload_004", "demo_c_upload_001"], "created_at": "2024-02-10T18:00:00", "updated_at": "2024-03-05T10:00:00"},
+            {"id": "demo_c_chrysanthemum_002", "card_text": "你喜欢自然和户外，露营和旅行是常做的事", "facts": ["和朋友露营", "去西藏旅行"], "source_ids": ["demo_c_upload_007", "demo_c_upload_016"], "created_at": "2024-03-25T20:00:00", "updated_at": "2024-05-20T08:00:00"}
+        ],
+        "hibiscus": [
+            {"id": "demo_c_hibiscus_001", "card_text": "你情绪丰富，从低落焦虑到充满灵感", "facts": ["情绪低落", "接不到单子焦虑", "心情特别好"], "source_ids": ["demo_c_upload_003", "demo_c_upload_011", "demo_c_upload_009"], "created_at": "2024-02-20T22:00:00", "updated_at": "2024-04-05T16:00:00"},
+            {"id": "demo_c_hibiscus_002", "card_text": "你通过艺术创作和旅行调节情绪，灵感来临时感到兴奋", "facts": ["画了三幅", "灵魂燃烧", "旅行治愈"], "source_ids": ["demo_c_upload_014", "demo_c_upload_004"], "created_at": "2024-03-05T10:00:00", "updated_at": "2024-05-05T15:00:00"}
+        ],
+        "camellia": [
+            {"id": "demo_c_camellia_001", "card_text": "你有坚持阅读的习惯，每月读多本书", "facts": ["淘了很多书", "读《百年孤独》", "读《月亮与六便士》"], "source_ids": ["demo_c_upload_002", "demo_c_upload_006", "demo_c_upload_012"], "created_at": "2024-02-15T15:00:00", "updated_at": "2024-04-25T20:00:00"},
+            {"id": "demo_c_camellia_002", "card_text": "你养成写日记的习惯，记录心情和想法", "facts": ["开始写日记", "记录每天心情"], "source_ids": ["demo_c_upload_017"], "created_at": "2024-05-25T22:00:00", "updated_at": "2024-05-25T22:00:00"}
+        ],
+        "narcissus": [
+            {"id": "demo_c_narcissus_001", "card_text": "你选择自由职业，权衡收入不稳定与创作自由", "facts": ["不想去公司上班", "收入不稳定", "喜欢自由生活"], "source_ids": ["demo_c_upload_011"], "created_at": "2024-04-20T23:00:00", "updated_at": "2024-04-20T23:00:00"},
+            {"id": "demo_c_narcissus_002", "card_text": "你坚持艺术梦想，从商业插画到出版绘本", "facts": ["接商业单子", "绘本合作", "出版第一本书"], "source_ids": ["demo_c_upload_005", "demo_c_upload_018", "demo_c_upload_020"], "created_at": "2024-03-15T17:00:00", "updated_at": "2024-06-20T16:00:00"}
+        ]
+    }
+}
