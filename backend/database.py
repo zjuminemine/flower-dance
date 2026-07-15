@@ -201,8 +201,8 @@ def update_card(card_id: str, updates: Dict[str, Any]):
     cursor = conn.cursor()
     try:
         set_clause = ', '.join([f"{k} = ?" for k in updates.keys()])
-        params = list(updates.values()) + [card_id]
-        cursor.execute(f'UPDATE cards SET {set_clause}, updated_at = ? WHERE id = ?', params + [now_str(), card_id])
+        params = list(updates.values()) + [now_str(), card_id]
+        cursor.execute(f'UPDATE cards SET {set_clause}, updated_at = ? WHERE id = ?', params)
         conn.commit()
     finally:
         conn.close()
