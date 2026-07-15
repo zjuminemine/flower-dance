@@ -2174,6 +2174,11 @@
             }
         }
 
+        function resetGlobalProfile() {
+            globalProfileLines = [];
+            renderGlobalProfile();
+        }
+
         // 全局画像
         async function generateGlobalProfile() {
             const btn = document.getElementById('generateProfileBtn');
@@ -2420,7 +2425,7 @@
                 document.getElementById('demoEntryBtn').classList.add('hidden');
                 
                 await fetchCards();
-                await fetchGlobalProfile();
+                resetGlobalProfile();
                 
                 if (data.user && data.user.name) {
                     document.querySelector('.main-title').textContent = `你好，${data.user.name}！`;
@@ -2463,7 +2468,7 @@
                 document.querySelector('.main-title').textContent = '种下你的碎片，开出你的画像。';
                 
                 await fetchCards();
-                await fetchGlobalProfile();
+                resetGlobalProfile();
                 
                 const plantPanel = document.getElementById('plantPanel');
                 const demoHints = plantPanel.querySelectorAll('[style*="rgba(124,92,191,0.15)"]');
