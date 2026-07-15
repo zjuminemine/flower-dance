@@ -93,7 +93,16 @@ def get_uploads() -> List[Dict[str, Any]]:
     try:
         cursor.execute('SELECT * FROM uploads ORDER BY created_at DESC')
         rows = cursor.fetchall()
-        return [dict(zip(['id', 'content_type', 'content', 'filename', 'created_at'], row)) for row in rows]
+        return [
+            {
+                'id': upload_id,
+                'source_type': content_type,
+                'raw_text': content,
+                'filename': filename,
+                'created_at': created_at,
+            }
+            for upload_id, content_type, content, filename, created_at in rows
+        ]
     finally:
         conn.close()
 

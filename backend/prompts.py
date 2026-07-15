@@ -180,7 +180,7 @@ def build_card_suggestions_prompt(
         "你写出的每一句话都要具体到这个人、这件事，不能是放在任何人身上都成立的空话。",
         "",
         "【新上传内容】",
-        new_upload["raw_text"],
+        new_upload.get("raw_text", ""),
         "",
         "【各分类已提取的新事实】",
         "这些事实都是从上面原文中直接提取的，是你写卡片的唯一依据。",
@@ -204,9 +204,9 @@ def build_card_suggestions_prompt(
             for card in cat_cards:
                 source_texts = []
                 for sid in card.get("source_ids", []):
-                    up = next((u for u in uploads if u["id"] == sid), None)
+                    up = next((u for u in uploads if u.get("id") == sid), None)
                     if up:
-                        source_texts.append(up["raw_text"])
+                        source_texts.append(up.get("raw_text", ""))
                 source_context = "\n\n".join(source_texts) if source_texts else "（无原始内容）"
                 lines.append(f"  卡片ID: {card['id']}")
                 lines.append(f"  当前文本: {card['card_text']}")
