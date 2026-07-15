@@ -5,10 +5,13 @@ import base64
 import logging
 import requests
 import uuid
+from collections.abc import MutableMapping, MutableSequence
+from contextvars import ContextVar
+from dataclasses import dataclass
 from datetime import datetime, timedelta
 from typing import Optional, List, Dict, Any
 
-from fastapi import FastAPI, File, Form, UploadFile
+from fastapi import FastAPI, File, Form, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from docx import Document
@@ -50,6 +53,28 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+@app.middleware("http")
+async def isolate_user_memory(request: Request, call_next):
+    if not request.url.path.startswith('/api/'):
+        return await call_next(request)
+
+    user_id = request.headers.get('X-Memory-User-ID', '')
+    try:
+        user_id = str(uuid.UUID(user_id))
+    except ValueError:
+        user_id = str(uuid.uuid4())
+
+    database_token = database.set_active_user(user_id)
+    memory_token = active_memory.set(demo_memories.get(user_id) or load_user_memory())
+    try:
+        response = await call_next(request)
+        response.headers['X-Memory-User-ID'] = user_id
+        return response
+    finally:
+        active_memory.reset(memory_token)
+        database.reset_active_user(database_token)
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 CARD_TITLE_MAX_LENGTH = 50
@@ -60,20 +85,94 @@ MIN_FACT_GROUNDING_LENGTH = 4
 MIN_FACT_COVERAGE_LENGTH = 3
 
 
-uploads: List[Dict[str, Any]] = database.get_uploads()
+@dataclass
+class UserMemory:
+    user_id: str
+    uploads: List[Dict[str, Any]]
+    cards: Dict[str, List[Dict[str, Any]]]
+    global_profile_cache: Optional[Dict[str, Any]]
+    profile_rejections: Dict[str, int]
+    is_demo_mode: bool = False
+    current_demo_user: Optional[Dict[str, Any]] = None
+    original_data_backup: Optional[Dict[str, Any]] = None
 
-cards: Dict[str, List[Dict[str, Any]]] = database.get_cards()
-for key in CATEGORY_KEYS:
-    if key not in cards:
-        cards[key] = []
 
-global_profile_cache: Optional[Dict[str, Any]] = database.get_global_profile()
+active_memory: ContextVar[Optional[UserMemory]] = ContextVar('active_memory', default=None)
+demo_memories: Dict[str, UserMemory] = {}
 
-profile_rejections: Dict[str, int] = database.get_rejections()
 
-is_demo_mode = False
-current_demo_user = None
-original_data_backup = None
+def load_user_memory() -> UserMemory:
+    cards_data = database.get_cards()
+    for key in CATEGORY_KEYS:
+        cards_data.setdefault(key, [])
+    return UserMemory(
+        user_id=database.get_active_user_id(),
+        uploads=database.get_uploads(),
+        cards=cards_data,
+        global_profile_cache=database.get_global_profile(),
+        profile_rejections=database.get_rejections(),
+    )
+
+
+def get_user_memory() -> UserMemory:
+    memory = active_memory.get()
+    if memory is None:
+        raise RuntimeError('用户记忆上下文未初始化')
+    return memory
+
+
+class MemoryList(MutableSequence):
+    def _value(self) -> List[Dict[str, Any]]:
+        return get_user_memory().uploads
+
+    def __getitem__(self, index):
+        return self._value()[index]
+
+    def __setitem__(self, index, value):
+        self._value()[index] = value
+
+    def __delitem__(self, index):
+        del self._value()[index]
+
+    def __len__(self):
+        return len(self._value())
+
+    def insert(self, index, value):
+        self._value().insert(index, value)
+
+    def copy(self):
+        return self._value().copy()
+
+
+class MemoryDict(MutableMapping):
+    def __init__(self, attribute: str):
+        self.attribute = attribute
+
+    def _value(self) -> Dict[str, Any]:
+        return getattr(get_user_memory(), self.attribute)
+
+    def __getitem__(self, key):
+        return self._value()[key]
+
+    def __setitem__(self, key, value):
+        self._value()[key] = value
+
+    def __delitem__(self, key):
+        del self._value()[key]
+
+    def __iter__(self):
+        return iter(self._value())
+
+    def __len__(self):
+        return len(self._value())
+
+    def copy(self):
+        return self._value().copy()
+
+
+uploads: List[Dict[str, Any]] = MemoryList()
+cards: Dict[str, List[Dict[str, Any]]] = MemoryDict('cards')
+profile_rejections: Dict[str, int] = MemoryDict('profile_rejections')
 
 
 def now_str() -> str:
@@ -576,8 +675,7 @@ async def confirm_cards(payload: dict):
                 "updated_at": new_card["updated_at"],
             })
 
-    global global_profile_cache
-    global_profile_cache = None
+    get_user_memory().global_profile_cache = None
     database.clear_global_profile()
 
     return {
@@ -608,10 +706,10 @@ def generate_global_profile():
             "available": False,
         }
 
-    global global_profile_cache
+    memory = get_user_memory()
     rejected_texts = []
-    if global_profile_cache:
-        for line in global_profile_cache.get("lines", []):
+    if memory.global_profile_cache:
+        for line in memory.global_profile_cache.get("lines", []):
             if profile_rejections.get(line.get("id"), 0) > 0:
                 rejected_texts.append(line.get("text", ""))
 
@@ -624,13 +722,13 @@ def generate_global_profile():
             line["id"] = make_id()
             line.setdefault("card_ids", [])
 
-        global_profile_cache = {
+        memory.global_profile_cache = {
             "available": True,
             "generated_at": now_str(),
             "lines": lines,
         }
-        database.save_global_profile(global_profile_cache)
-        return global_profile_cache
+        database.save_global_profile(memory.global_profile_cache)
+        return memory.global_profile_cache
     except Exception as e:
         logger.exception("Global profile generation failed")
         return {"error": str(e), "available": False}
@@ -749,16 +847,15 @@ def get_demo_users():
 
 @app.post("/api/demo/enter")
 async def enter_demo_mode(user_id: Optional[str] = None):
-    global is_demo_mode, current_demo_user, original_data_backup, uploads, cards, global_profile_cache, profile_rejections
-    
-    if is_demo_mode:
+    memory = get_user_memory()
+    if memory.is_demo_mode:
         return {"error": "已在演示模式中"}
-    
-    original_data_backup = {
-        "uploads": uploads.copy(),
-        "cards": {k: v.copy() for k, v in cards.items()},
-        "global_profile_cache": global_profile_cache,
-        "profile_rejections": profile_rejections.copy(),
+
+    memory.original_data_backup = {
+        "uploads": memory.uploads.copy(),
+        "cards": {k: v.copy() for k, v in memory.cards.items()},
+        "global_profile_cache": memory.global_profile_cache,
+        "profile_rejections": memory.profile_rejections.copy(),
     }
     
     if user_id:
@@ -770,63 +867,65 @@ async def enter_demo_mode(user_id: Optional[str] = None):
             with open(user_file, "r", encoding="utf-8") as fp:
                 user_data = json.load(fp)
             
-            uploads = user_data.get("uploads", [])
+            memory.uploads = user_data.get("uploads", [])
             cards_data = user_data.get("cards", {})
-            cards = {key: cards_data.get(key, []) for key in CATEGORY_KEYS}
-            current_demo_user = user_data.get("user_info", {})
+            memory.cards = {key: cards_data.get(key, []) for key in CATEGORY_KEYS}
+            memory.current_demo_user = user_data.get("user_info", {})
         except Exception as e:
             logger.error(f"Failed to load demo user data: {e}")
             return {"error": f"加载演示数据失败: {str(e)}"}
     else:
-        uploads = []
-        cards = {key: [] for key in CATEGORY_KEYS}
-        current_demo_user = None
-    
-    global_profile_cache = None
-    profile_rejections = {}
-    is_demo_mode = True
+        memory.uploads = []
+        memory.cards = {key: [] for key in CATEGORY_KEYS}
+        memory.current_demo_user = None
+
+    memory.global_profile_cache = None
+    memory.profile_rejections = {}
+    memory.is_demo_mode = True
+    demo_memories[memory.user_id] = memory
     
     return {
         "success": True,
         "mode": "demo",
-        "user": current_demo_user,
-        "uploads_count": len(uploads),
-        "cards_count": sum(len(v) for v in cards.values()),
+        "user": memory.current_demo_user,
+        "uploads_count": len(memory.uploads),
+        "cards_count": sum(len(v) for v in memory.cards.values()),
     }
 
 
 @app.post("/api/demo/exit")
 async def exit_demo_mode():
-    global is_demo_mode, current_demo_user, original_data_backup, uploads, cards, global_profile_cache, profile_rejections
-    
-    if not is_demo_mode:
+    memory = get_user_memory()
+    if not memory.is_demo_mode:
         return {"error": "不在演示模式中"}
-    
-    if original_data_backup:
-        uploads = original_data_backup["uploads"]
-        cards = original_data_backup["cards"]
-        global_profile_cache = original_data_backup["global_profile_cache"]
-        profile_rejections = original_data_backup["profile_rejections"]
-    
-    is_demo_mode = False
-    current_demo_user = None
-    original_data_backup = None
+
+    if memory.original_data_backup:
+        memory.uploads = memory.original_data_backup["uploads"]
+        memory.cards = memory.original_data_backup["cards"]
+        memory.global_profile_cache = memory.original_data_backup["global_profile_cache"]
+        memory.profile_rejections = memory.original_data_backup["profile_rejections"]
+
+    memory.is_demo_mode = False
+    memory.current_demo_user = None
+    memory.original_data_backup = None
+    demo_memories.pop(memory.user_id, None)
     
     return {
         "success": True,
         "mode": "normal",
-        "uploads_count": len(uploads),
-        "cards_count": sum(len(v) for v in cards.values()),
+        "uploads_count": len(memory.uploads),
+        "cards_count": sum(len(v) for v in memory.cards.values()),
     }
 
 
 @app.get("/api/demo/status")
 def get_demo_status():
+    memory = get_user_memory()
     return {
-        "is_demo_mode": is_demo_mode,
-        "current_user": current_demo_user,
-        "uploads_count": len(uploads),
-        "cards_count": sum(len(v) for v in cards.values()),
+        "is_demo_mode": memory.is_demo_mode,
+        "current_user": memory.current_demo_user,
+        "uploads_count": len(memory.uploads),
+        "cards_count": sum(len(v) for v in memory.cards.values()),
     }
 
 
